@@ -4,7 +4,7 @@
 	<title>	page</title>
 </head>
 <body>
-bonjour
+bonjour, connard
 
 </body>
 </html>
