@@ -32,7 +32,19 @@
 		}
 		
 
-		echo '<h1> connecté </h1>';
+		$requete = "SELECT admin FROM utilisateur WHERE login LIKE '" . $_POST['id'] . "'";
+		$stmt = $pdo->query($requete);
+		$res = $stmt->fetch();
+
+		
+
+		if($res['admin'] == 0){
+			echo '<h1> Connecté en utilisateur </h1>';
+		}
+		elseif ($res['admin'] == 1) {
+			echo '<h1> Connecté en admin </h1>';
+		}
+		
 
 	}
 
