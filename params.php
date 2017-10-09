@@ -1,5 +1,5 @@
 <?php
-	require "bdd.php";
+	require "bd.php";
 
 	session_start();
 	$_SESSION = $_POST;
