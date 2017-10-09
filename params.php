@@ -10,7 +10,7 @@
 	}
 	else{
 
-		$requete = "SELECT password FROM inscrit WHERE identifiant LIKE '" . $_POST['id'] . "'";
+		$requete = "SELECT password FROM utilisateur WHERE login LIKE '" . $_POST['id'] . "'";
 		$stmt = $pdo->query($requete);
 		$res = $stmt->fetch();
 		
