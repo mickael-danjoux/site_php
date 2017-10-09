@@ -1,5 +1,5 @@
 <?php
-	require "bdd.php";
+	require "bd.php";
 	session_start();
 	$_SESSION = $_POST;
 	
@@ -16,12 +16,12 @@
 	<h1>Inscription</h1>
 	<?php
 		if(!empty($_POST['id']) && !empty($_POST['mdp'])){
-			$requete = "INSERT INTO inscrit (identifiant,password) values (?,?)";
+			$requete = "INSERT INTO utilisateur (login,password,admin) values (?,?,?)";
 			//echo $requete; die();
 			
 			$stmt = $pdo->prepare($requete);
 			
-			$stmt->execute(array($_POST['id'],$_POST['mdp']));
+			$stmt->execute(array($_POST['id'],$_POST['mdp'],0));
 			header("Location: main.php?message=Bienvenue ".$_POST['id']);
 		}
 	?>
