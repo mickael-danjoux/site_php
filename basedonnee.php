@@ -52,5 +52,19 @@
 			return $res;
 		}
 
+		public function insertUtilisateur($_login,$_password,$_admin){
+
+			$requete = "INSERT INTO utilisateur (login,password,admin) values (?,?,?)";
+			$stmt = $pdo->prepare($requete);
+			$stmt->execute(array($_login,$_password,$_admin));
+		}
+
+		public function insertPhoto($_photo){
+
+			$requete = "INSERT INTO image (id,nom,lieu,date,evenement,mot_cle,url) values (?,?,?,?,?,?,?)";
+			$stmt = $pdo->prepare($requete);
+			$stmt->execute(array()); //a completer
+		}
+
 	}
 ?>
