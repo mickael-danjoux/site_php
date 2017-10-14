@@ -1,15 +1,22 @@
 <?php
 	class BDD{
+		private $mail;
 		private $user;
 		private $password;
 		private $host;
 		private $bd_name;
 
-		public function __construct($_user,$_password,$_host,$_bd_name){
+
+		public function __construct($_mail,$_user,$_password,$_host,$_bd_name){
+			$this->setMail($_mail);
 			$this->setUser($_user);
 			$this->setPassword($_password);
 			$this->setHost($_host);
 			$this->setBd_name($_bd_name);
+		}
+
+		public function setMail($_mail){
+			$this->mail = $_mail);
 		}
 
 		public function setUser($_user){
@@ -52,11 +59,11 @@
 			return $res;
 		}
 
-		public function insertUtilisateur($_login,$_password,$_admin){
+		public function insertUtilisateur($_mail,$_login,$_password,$_admin){
 
-			$requete = "INSERT INTO utilisateur (login,password,admin) values (?,?,?)";
+			$requete = "INSERT INTO utilisateur (mail,login,password,admin) values (?,?,?,?)";
 			$stmt = $pdo->prepare($requete);
-			$stmt->execute(array($_login,$_password,$_admin));
+			$stmt->execute(array($_mail,$_login,$_password,$_admin));
 		}
 
 		public function insertPhoto($_photo){
