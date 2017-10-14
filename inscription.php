@@ -2,6 +2,7 @@
 	require "bd.php";
 	session_start();
 	$_SESSION = $_POST;
+	require 'basedonnee.php'; // J'inclus la classe.
 	
 	
 ?>
@@ -14,36 +15,72 @@
 <body>
 	<div class="wrapper">
 	<h1>Inscription</h1>
+
 	<?php
 
-	//incription utilisateur
+
+//incription utilisateur
+	
+	// test de la validitée de l'adresse mail entrée
+	public function testMail ($_mail){
+
+		if( !filter_var($email, FILTER_VALIDATE_EMAIL) ){
+			
+  		  echo "'{$email}' n'est pas une adresse email valide.";
+  		  return 0;
+		} 
+
+		return 1;
+	}
+
+	//test des cmaps du formulaire
+	public function testValue($_POST['id'],$_POST['mdp'],$_POST['confirm_password']){
+
+		$completed=1;
+
+		if(empty($_POST['id']){
+			echo"Le champ 'login' n'est pas remplis";
+			$completed=0;
+		}
+		if(empty($_POST['mdp'])){
+			echo"Veuillez entrer un mot de passe";
+			$completed=0;
+		}
+		if($_POST['confirm_password']==$_POST['mdp'])){
+			echo"Les mot de passe doivent être identiques"
+			$completed=0;
+		}
+		if($completed=1;){
+			return 1;
+		}
+
+		return 0;
+
+	}
+
 	if (!empty($_POST)){
-		// on test les champs
-		if(!empty($_POST['id']) && !empty($_POST['mdp'])&&$_POST['confirm_password']==$_POST['mdp']){
-			$requete = "INSERT INTO utilisateur (login,password,admin) values (?,?,?)";
-			//echo $requete; die();
-			
-			$stmt = $pdo->prepare($requete);
-			
-			$stmt->execute(array($_POST['id'],$_POST['mdp'],0));
+
+
+		if (testValue($_POST['id'],$_POST['mdp'],$_POST['confirm_password'])==1&&testMail($_POST['mail'])==1) {
+			//enregistrement dans la table
+
+			basedonnee::insertUtilisateur($_POST['mail']),$_POST['id'],$_POST['mdp'],"0");
+
+			//renvoie a la page de connexion
 			header("Location: main.php?message=Bienvenue ".$_POST['id']);
 		}
-		// on affiche un message d'erreur si les champs sont incorrect
-		elseif ($_POST['confirm_password']!=$_POST['mdp']) 
-		{ 
-			?>  <script language='javascript'>
-      			alert('Le mot de passe confirmé n\'est pas identique');
-   			 </script>
-  		 <?php
-		}
 	}
+		
+$nom = !empty($_POST['mail']) ? $_POST['mail'] : '';
 		?>
 	
 	<form name="Inscription" method="post">
-		<input type="login" name="id" placeholder="Login"><br>
-			
-		<input type="password" name="mdp" placeholder="Mot de passe"><br>
-		<input type="password" name="confirm_password" placeholder="Confirmer mot de passe">
+
+	<input type="text" name ="mail" placeholder="Mail" value="'.$nom.'"/><br>
+	
+		<input type="text" name="id" placeholder="Login"   value="<?php if (isset($_POST['id'])){echo$_POST['id']; }?>"/><br>
+		<input type="password" name="mdp" placeholder="Mot de passe"/><br>
+		<input type="password" name="confirm_password" placeholder="Confirmer mot de passe"/>
 			
 		<input type="submit">
 		<input type="reset"><br>
@@ -51,4 +88,3 @@
 	</div>
 </body>
 </html>
-
