@@ -17,6 +17,11 @@
 			$this->setUrl($_url);
 		}
 
+<<<<<<< HEAD
+=======
+		
+
+>>>>>>> 3af6de7859e553088e236f03729f487e5d495584
 		public function setNom($_nom){
 			$this->nom = $_nom;
 		}
