@@ -1,12 +1,13 @@
 <?php
 	include "utilisateur.php";
 	include "image.php";
-	
+
 	class BDD{
 		private $user;
 		private $password;
 		private $host;
 		private $bd_name;
+		private $pdo;
 
 
 		public function __construct($_user,$_bd_name,$_password,$_host){
@@ -35,7 +36,7 @@
 		public function connexion(){
 			try{
 				$dsn = 'mysql:host='.$this->host.';port=3306;dbname='.$this->bd_name.'';
-				$pdo = new PDO($dsn, $this->user, $this->password);
+				$this->pdo = new PDO($dsn, $this->user, $this->password);
 			}
 			catch (Exception $e){
 				die('Erreur : ' . $e->getMessage());
@@ -50,7 +51,7 @@
 				$requete = "SELECT ".$_attribut." FROM ".$_table." WHERE ".$_condition;
 			}
 
-			$stmt = $pdo->query($requete);
+			$stmt = $this->pdo->query($requete);
 			$res = $stmt->fetch();
 
 			return $res;
@@ -59,14 +60,14 @@
 		public function insertUtilisateur($utilisateur){
 
 			$requete = "INSERT INTO utilisateur (mail,login,password,admin) values (?,?,?,?)";
-			$stmt = $pdo->prepare($requete);
+			$stmt = $this->pdo->prepare($requete);
 			$stmt->execute(array($utilisateur->getMail(),$utilisateur->getLogin(),$utilisateur->getPassword(),$utilisateur->getAdmin()));
 		}
 
 		public function insertPhoto($image){
 
 			$requete = "INSERT INTO image (id,nom,lieu,date,evenement,mot_cle,url) values (?,?,?,?,?,?,?)";
-			$stmt = $pdo->prepare($requete);
+			$stmt = $this->pdo->prepare($requete);
 			$stmt->execute(array()); //a completer
 		}
 

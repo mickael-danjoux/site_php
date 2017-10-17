@@ -1,5 +1,6 @@
 <?php 
 	session_start();
+	include "form.php";
 ?>
 
 <!DOCTYPE html>
@@ -12,24 +13,26 @@
 </head>
 <body>
 	<div class="wrapper">
+	<h1>Connexion</h1>
 	<?php
 		if(isset($_GET['message'])){
 			echo $_GET['message'];
 		}
 	?>
-	<h1>Connexion</h1>
-	<form name="connexion" action="params.php" method="post">
-		<input type="text" name="id" placeholder="Login" required
-			<?php if(!empty($_SESSION['id'])){
-				echo 'value="'.$_SESSION['id'].'"';
-			} ?>> <br>
-		<input type="password" name="mdp" placeholder="Mot de passe" required
-			<?php if(!empty($_SESSION['mdp'])){
-				echo 'value="'.$_SESSION['mdp'].'"';
-			} ?>> <br>
-		<input type="submit">
-		<input type="reset"><br>
-	</form>
+	
+	<?php
+		//création du formulaire
+		$form_connexion = new FormBuilder("form_connexion.php","Valider");
+		//ajout de l'input login
+		$form_connexion->addInput("id","text","Login",null,true);
+		//ajout de l'input password
+		$form_connexion->addInput("mdp","password","Mot de passe",null,true);
+		//ajout de l'input reset
+		$form_connexion->addInput("reset","reset",null,"Reset",false);
+		//on construit le formulaire
+		$form_connexion->build();
+	?>
+	
 	<a href="inscription.php">Inscription</a>
 	</div>
 </body>

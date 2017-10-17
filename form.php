@@ -55,8 +55,8 @@
 	}
 
 	// Test class
-	$form = new FormBuilder("myaction.php", "Validate this super form");
-	$form->addInput("username", $type = "text", "Username", null, true);
-	$form->addInput("password", $type = "password", "Password", null, true);
-	$form->build();
+	//$form = new FormBuilder("myaction.php", "Validate this super form");
+	//$form->addInput("username", $type = "text", "Username", null, true);
+	//$form->addInput("password", $type = "password", "Password", null, true);
+	//$form->build();
 ?>
