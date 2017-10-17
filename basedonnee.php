@@ -1,4 +1,7 @@
 <?php
+	include "utilisateur.php";
+	include "image.php";
+	
 	class BDD{
 		private $user;
 		private $password;
