@@ -8,6 +8,15 @@
 		private $mot_cle;
 		private $url;
 
+		public function __construct($_nom,$_lieu,$_date,$_evenement,$_mot_cle,$_url){
+			$this->setNom($_nom);
+			$this->setLieu($_lieu);
+			$this->setDate($_date);
+			$this->setEvenement($_evenement);
+			$this->setMot_cle($_mot_cle);
+			$this->setUrl($_url);
+		}
+
 		public function __construct(){
 			
 		}
