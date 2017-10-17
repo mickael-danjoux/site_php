@@ -22,7 +22,7 @@
 //incription utilisateur
 	
 	// test de la validitée de l'adresse mail entrée
-	public function testMail ($_mail){
+	 function testMail ($_mail){
 
 		if( !filter_var($email, FILTER_VALIDATE_EMAIL) ){
 			
@@ -34,23 +34,23 @@
 	}
 
 	//test des cmaps du formulaire
-	public function testValue($_POST['id'],$_POST['mdp'],$_POST['confirm_password']){
+	 function testValue($id,$mdp,$confirm_password){
 
 		$completed=1;
 
-		if(empty($_POST['id']){
+		if(empty($id)){
 			echo"Le champ 'login' n'est pas remplis";
 			$completed=0;
 		}
-		if(empty($_POST['mdp'])){
+		if(empty($mdp)){
 			echo"Veuillez entrer un mot de passe";
 			$completed=0;
 		}
-		if($_POST['confirm_password']==$_POST['mdp'])){
-			echo"Les mot de passe doivent être identiques"
+		if($confirm_password==$mdp){
+			echo"Les mot de passe doivent être identiques";
 			$completed=0;
 		}
-		if($completed=1;){
+		if($completed=1){
 			return 1;
 		}
 
