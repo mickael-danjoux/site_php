@@ -12,9 +12,6 @@
 			$this->setAdmin($_admin);
 		}
 
-		public function __construct(){
-
-		}
 
 		public function setMail($_mail){
 			$this->mail = $_mail;

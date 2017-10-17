@@ -17,9 +17,7 @@
 			$this->setUrl($_url);
 		}
 
-		public function __construct(){
-			
-		}
+		
 
 		public function setNom($_nom){
 			$this->nom = $_nom;
