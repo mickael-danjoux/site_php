@@ -31,5 +31,21 @@
 		public function setAdmin($_admin){
 			$this->admin = $_admin;
 		}
+
+		public function getMail(){
+			return $this->mail;
+		}
+
+		public function getLogin(){
+			return $this->login;
+		}
+
+		public function getPassword(){
+			return $this->password;
+		}
+
+		public function getAdmin(){
+			return $this->admin;
+		}
 	}
 ?>
