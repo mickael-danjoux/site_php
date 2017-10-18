@@ -22,4 +22,12 @@ input[type="submit"],input[type="reset"]{
 	padding: 10px;
 }
 
+#photos{
+	padding-top: 10%;
+}
+
+.ph{
+	border: solid;
+	width: 50%;
+}
 

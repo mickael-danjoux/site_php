@@ -1,8 +1,8 @@
 <?php
-	require "bd.php";
-
 	session_start();
 	$_SESSION = $_POST;
+
+	require_once "bd.php";
 ?>
 <!DOCTYPE html>
 <html>
@@ -12,6 +12,7 @@
 	<link rel="stylesheet" type="text/css" href="theme.css">
 </head>
 <body>
+	
 	
 </body>
 </html>

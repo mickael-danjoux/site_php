@@ -52,7 +52,13 @@
 			}
 
 			$stmt = $this->pdo->query($requete);
-			$res = $stmt->fetch();
+			if($_attribut == "*"){
+				$res = $stmt->fetchall();
+			}
+			else{
+				$res = $stmt->fetch();
+			}
+			
 
 			return $res;
 		}

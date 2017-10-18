@@ -1,6 +1,7 @@
 <?php 
 	session_start();
 	include "form.php";
+	require_once "bd.php";
 ?>
 
 <!DOCTYPE html>
@@ -31,6 +32,20 @@
 		?>
 		
 		<a href="inscription.php">Inscription</a>
+		</div>
+		<div id="photos">
+			<?php
+				$res = $BDD->select("*","image","");
+
+				foreach ($res as $row) {
+					echo "<div class=\"ph\">";
+					echo "<img src=\"".$row[6]."\"><br>";
+					echo $row[1];
+					echo $row[2];
+					echo $row[3];
+					echo "</div>";
+				}
+			?>
 		</div>
 	</body>
 </html>

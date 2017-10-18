@@ -1,7 +1,7 @@
 <?php
 	session_start();
 	$_SESSION = $_POST;
-	require "bd.php";
+	require_once "bd.php";
 
 	//vérification si les champs sont remplis
 	if(empty($_POST['id']) || empty($_POST['mdp'])){
