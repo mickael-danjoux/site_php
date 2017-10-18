@@ -12,10 +12,7 @@
 			$this->setAdmin($_admin);
 		}
 
-<<<<<<< HEAD
-=======
 
->>>>>>> 3af6de7859e553088e236f03729f487e5d495584
 		public function setMail($_mail){
 			$this->mail = $_mail;
 		}
