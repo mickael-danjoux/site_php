@@ -1,5 +1,6 @@
 <?php
 require_once "bd.php";
+
 session_start();
 $_SESSION['form'] = $_POST;
 
@@ -74,27 +75,48 @@ $_SESSION['form'] = $_POST;
 
 		}
 
-		// on verifie que le formulaire à été validé
+		// fonction de hashage du mdp
+
+		function hash_password ($password){
+
+			//Ajout d'un prefixe et d'une suffixe pour augmenter la sécurité des mots de passe
+			define("PREFIXE","15af14gh");
+			define("SUFFIXE","654ighj5");
+
+			$hash = PREFIXE.hash("sha256",$password).SUFFIXE;
+			return $hash;
+
+		}
+
+		
 		if (!empty($_POST)){
+			$_mail = htmlspecialchars($_POST['mail']);
+			$_login = htmlspecialchars($_POST['id']);
+		    $_password = htmlspecialchars($_POST['mdp']);
+		    $_conpass = htmlspecialchars($_POST['confirm_password']);
 
  			// on test les champs et affiche les messages d'erreur si necessaire
-			$erreur_mail=erreurMail($_POST['mail']);
-
-			$test=testValue($_POST['id'],$_POST['mdp'],$_POST['confirm_password']);
-
+			$no_erreur_mail=erreurMail($_mail);
+			
+            // on verifie que le formulaire à été validé
+			$test=testValue($_login,$_password,$_conpass);
+			
 	
 			// on créer et enregistre le nouvel utilisateur
-			if ($erreur_mail==0&&$test==1) {
+			if (($no_erreur_mail==1)&&($test==1)) {
 
-				$hash = PREFIXE.hash("sha256",$_mdp).SUFFIXE;
+				$hash=hash_password($_password);
 
-				$requete = $pdo->prepare("INSERT INTO client VALUES (default,?,?,?,0)");
-				$requete->execute(array($_login,$hash,$_couleur));
+				$utilisateur=new Utilisateur ($_mail,$_login,$hash,0);
+				//$BDD->insertUtilisateur($utiisateur);
+
+				$requete = $BDD::prepare("INSERT INTO utilisateur VALUES (?,?,?,0)");
+				$requete->execute(array($_mail,$_login,$hash,$_couleur));
 
 			
 				
 
-				$utilisateur=new Utilisateur ($_POST['mail'],$_POST['id'],$_POST['mdp'],0);
+			
 
 
 
