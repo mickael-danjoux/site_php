@@ -42,5 +42,8 @@
 			}
 		}
 	}
+	//Ajout d'un prefixe et d'une suffixe pour augmenter la sécurité des mots de passe
+	define("PREFIXE","15af14gh");
+	define("SUFFIXE","654ighj5");
 
 ?>
