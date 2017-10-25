@@ -106,19 +106,10 @@ $_SESSION['form'] = $_POST;
 			if (($no_erreur_mail==1)&&($test==1)) {
 
 				$hash=hash_password($_password);
-
+				// on créer un utilisateur
 				$utilisateur=new Utilisateur ($_mail,$_login,$hash,0);
-				//$BDD->insertUtilisateur($utiisateur);
-
-				$requete = $BDD::prepare("INSERT INTO utilisateur VALUES (?,?,?,0)");
-				$requete->execute(array($_mail,$_login,$hash,$_couleur));
-
-			
-				
-
-			
-
-
+				// on l'ajoute dans la BD
+				$BDD->insertUtilisateur($utilisateur);
 
 			//renvoie a la page de connexion
 				header("Location: main.php?message=Bienvenue ".$_POST['id']);
