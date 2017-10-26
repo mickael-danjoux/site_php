@@ -24,28 +24,56 @@
 			$this->nom = $_nom;
 		}
 
+		public function getNom(){
+			return $this->nom;
+		}
+
 		public function setLieu($_lieu){
 			$this->lieu = $_lieu;
+		}
+
+		public function getLieu(){
+			return $this->lieu;
 		}
 
 		public function setDate($_date){
 			$this->date = $_date;
 		}
 
+		public function getDate(){
+			return $this->date;
+		}
+
 		public function setEvenement($_evenement){
 			$this->evenement = $_evenement;
+		}
+
+		public function getEvenement(){
+			return $this->evenement;
 		}
 
 		public function setMot_cle($_mot_cle){
 			$this->mot_cle = $_mot_cle;
 		}
 
+		public function getMot_cle(){
+			return $this->mot_cle;
+		}
+
 		public function setUrl($_url){
 			$this->url = $_url;
 		}
 
+		public function getUrl(){
+			return $this->url;
+		}
+
 		public function setUrlM($_url_m){
 			$this->url_m = $_url_m;
+		}
+
+		public function getUrlM(){
+			return $this->url_m;
 		}
 
 		public function afficheMiniature(){

@@ -8,7 +8,7 @@
 	//Vérification que l'utilisateur n'est pas admin, car il a une page spéciale pour le catalogue
 	if(isset($_SESSION['admin'])){
 		if($_SESSION['admin']){
-			header('Location: administrateur.php');
+			header('Location: administrateurSuppr.php');
 		}
 		
 	}
@@ -31,7 +31,7 @@
 
 			//On ajoute une barre de recherche pour chercher les mots clé
 			echo "<div id=\"form_recherche\">";
-			$form_recherche = new form("recherche","form_recherche.php","post");
+			$form_recherche = new form("recherche","form_recherche.php","post","");
 			$form_recherche->setinput("text","motcle","Recherche par mot-clé",0);
 			$form_recherche->setsubmit("validerrecherche","Go");
 			$form_recherche->getform();
@@ -40,13 +40,13 @@
 			//On regarde si on est déjà connecté ou non et on affiche le formulaire correspondant
 			if(isset($_SESSION['id'],$_SESSION['mdp'],$_SESSION['mail'],$_SESSION['admin'])){
 				//Formulaire de déconnexion
-				$form_deconnexion = new form("deconnexion","deconnexion.php","post");
+				$form_deconnexion = new form("deconnexion","deconnexion.php","post","");
 				$form_deconnexion->setsubmit("validerdeconnexion","Deconnexion");
 				$form_deconnexion->getform();
 			}
 			else{
 				//Formulaire de connexion
-				$form_connexion = new form("connexion","form_connexion.php","post");
+				$form_connexion = new form("connexion","form_connexion.php","post","");
 				$form_connexion->setinput("text","id","Login",1);
 				$form_connexion->setinput("password","mdp","Mot de passe",1);
 				$form_connexion->setsubmit("validerconnexion","Connexion");

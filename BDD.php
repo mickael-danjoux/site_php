@@ -85,9 +85,24 @@
 
 		public function insertPhoto($image){
 
-			$requete = "INSERT INTO image (id,nom,lieu,date,evenement,mot_cle,url) values (?,?,?,?,?,?,?)";
+			$requete = "INSERT INTO image (id,nom,lieu,date,evenement,mot_cle,url,url_min) values (default,?,?,?,?,?,?,?)";
 			$stmt = $this->pdo->prepare($requete);
-			$stmt->execute(array()); //a completer
+			$stmt->execute(array($image->getNom(),$image->getLieu(),$image->getDate(),$image->getEvenement(),$image->getMot_cle(),$image->getUrl(),$image->getUrlM())); 
+		}
+
+		public function modifierPhoto($_attribut,$_nouvelleValeur, $_condition){
+			try{
+				//$requete = "UPDATE image SET :attribut = :nouvelleValeur WHERE :condition";
+				$stmt = $this->pdo->prepare("UPDATE image SET :attribut = :nouvelleValeur WHERE id = :condition");
+				$stmt->bindParam(':attribut',$_attribut,PDO::PARAM_STR);
+				$stmt->bindParam(':nouvelleValeur',$_nouvelleValeur,PDO::PARAM_STR);
+				$stmt->bindParam(':condition',$_condition,PDO::PARAM_INT);
+				$stmt->execute();
+			}
+			catch(PDOException $e){
+				echo "Echec lors de l'ajout : ".$e->getMessage();
+			}
+			
 		}
 
 	}

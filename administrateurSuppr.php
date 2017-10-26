@@ -28,7 +28,7 @@
 
 			<?php	
 				//Formulaire de déconnexion
-					$form_deconnexion = new form("deconnexion","deconnexion.php","post");
+					$form_deconnexion = new form("deconnexion","deconnexion.php","post","");
 					$form_deconnexion->setsubmit("validerdeconnexion","Deconnexion");
 					$form_deconnexion->getform();
 			?>
