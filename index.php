@@ -4,6 +4,14 @@
 	//On inclut les fichiers utilisés
 	require_once('form.php');
 	require_once('connexionbd.php');
+
+	//Vérification que l'utilisateur n'est pas admin, car il a une page spéciale pour le catalogue
+	if(isset($_SESSION['admin'])){
+		if($_SESSION['admin']){
+			header('Location: administrateur.php');
+		}
+		
+	}
 ?>
 
 <!DOCTYPE html>

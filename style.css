@@ -66,3 +66,20 @@ div.image{
 	margin: 10px;
 }
 
+a#inscription{
+	float: right;
+	margin-right: 1.5%;
+	margin-top: 0.5%;
+}
+
+ul#menu_admin li { 
+	display : inline;
+	padding : 0 0.5em; 
+}
+
+ul#menu_admin {
+	list-style-type : none; 
+	float: left;
+	margin-top: 2%;
+	margin-left: 5%;
+}
