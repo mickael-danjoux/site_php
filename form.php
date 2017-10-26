@@ -1,62 +1,39 @@
 <?php
-	class FormBuilder {
+	class form{
+		private $form;
 
-		private $_inputs = array();
-		private $_action;
+		public function __construct($_name,$_action,$_method){
+			$this->form = "<form name=\"".$_name."\" action=\"".$_action."\" method=\"".$_method."\">";
 
-		const FORM_HTML = '<form action="%s" method="post">%s</form>';
-		const INPUT_HTML = '<input type="%s" name="%s" placeholder="%s" value="%s" %s>';
-		const SUBMIT_HTML = '<input type="submit" value="%s">';
 
-		public function __construct($action, $submit = "Submit") {
-			$this->_action = $action;
-			$this->_submit = $submit;
 		}
 
-		public function addInput($name, $type = "text", $placeholder = null, $value = null, $required = false) {
-			$this->_inputs[] = array(
-				'name' => $name,
-				'type' => $type,
-				'placeholder' => $placeholder,
-				'value' => $value,
-				'required' => $required ? 'required' : ''
-			);
-		}
+		public function setinput($_type,$_name,$_placeholder,$_required){
+			$this->form .= "<input type=\"".$_type."\"";
 
-		public function build($echo = true) {
-			$inputsHtml = "";
-			foreach($this->_inputs as $input) {
-				$inputsHtml .= sprintf(
-					FormBuilder::INPUT_HTML,
-					$input['type'],
-					$input['name'],
-					$input['placeholder'],
-					$input['value'],
-					$input['required']
-				);
+			if($_name != ""){
+				$this->form .= " name=\"".$_name."\"";
 			}
 
-			$submitHtml = sprintf(FormBuilder::SUBMIT_HTML, $this->_submit);
-
-			$formBodyHtml = $inputsHtml . $submitHtml;
-
-			$formHtml = sprintf(
-				FormBuilder::FORM_HTML,
-				$this->_action,
-				$formBodyHtml
-			);
-
-			if ($echo) {
-				echo $formHtml;
-			} else {
-				return $formHtml;
+			if($_placeholder != ""){
+				$this->form .= " placeholder=\"".$_placeholder."\"";
 			}
+
+			if($_required){
+				$this->form .= " required";
+			}
+
+			$this->form .= ">";
 		}
+
+		public function setsubmit($_name,$_value){
+			$this->form .= "<input type=\"submit\" name=\"".$_name."\" value=\"".$_value."\">";
+		}
+
+		public function getform(){
+			$this->form .= "</form>";
+			echo $this->form;
+		}
+
 	}
-
-	// Test class
-	//$form = new FormBuilder("myaction.php", "Validate this super form");
-	//$form->addInput("username", $type = "text", "Username", null, true);
-	//$form->addInput("password", $type = "password", "Password", null, true);
-	//$form->build();
 ?>

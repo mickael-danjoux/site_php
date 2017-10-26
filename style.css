@@ -1,0 +1,68 @@
+div#bandeau{
+	width:100%;
+	height:100px;
+	background-color: lightblue;
+	padding: 5px 10px 5px;
+}
+
+div#contenu{
+	width: 100%;
+	height: 500px;
+	padding: 5px 10px 5px;
+}
+
+body{
+	margin: 0;
+}
+
+input[name='id']{
+	padding: 5px;
+	margin-top: 5px;
+	margin-right: 2.45%;
+	width: 169px;
+	float: right;
+}
+
+input[name='mdp']{
+	padding: 5px;
+	margin-left: 88%;
+	margin-top: -1.60%;
+	margin-right: 2.45%;
+	width: 169px;
+	float: right;
+}
+
+input[name='validerconnexion']{
+	padding: 5px;
+	margin-right: 2.45%;
+	margin-top: 0.1%;
+	float: right;
+}
+
+input[name='validerdeconnexion']{
+	padding: 5px;
+	margin-right: 2.45%;
+	margin-top: 2%;
+	float: right;
+}
+
+div#form_recherche{
+	width: 250px;
+	float: left;
+	margin-left: 40%;
+	margin-top: 1.5%;
+}
+
+input[name='motcle'],input[name='validerrecherche']{
+	padding: 10px;
+}
+
+div.image{
+	width: 239px;
+	border: solid 2px lightgray;
+	font-family: Calibri;
+	text-align: center;
+	float: left;
+	margin: 10px;
+}
+

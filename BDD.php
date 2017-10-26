@@ -1,6 +1,6 @@
 <?php
-	include "utilisateur.php";
-	include "image.php";
+	require_once("utilisateur.php");
+	require_once("image.php");
 
 	class BDD{
 		private $user;
@@ -33,6 +33,10 @@
 			$this->bd_name = $_bd_name;
 		}
 
+		public function getPdo(){
+			return $this->pdo;
+		}
+
 		public function connexion(){
 			try{
 				$dsn = 'mysql:host='.$this->host.';port=3306;dbname='.$this->bd_name.'';
@@ -45,21 +49,30 @@
 
 		public function select($_attribut,$_table,$_condition){
 			if($_condition == ""){
+				//$requete = "SELECT ? FROM ?";
+				//$requete = $this->pdo->prepare($requete);
+
+				//$requete->execute(array($_attribut,$_table));
+
 				$requete = "SELECT ".$_attribut." FROM ".$_table;
+
 			}
 			else{
 				$requete = "SELECT ".$_attribut." FROM ".$_table." WHERE ".$_condition;
-			}
+				//$requete = $this->pdo->prepare("SELECT ? FROM ? WHERE ?");
+				//$requete->execute(array($_attribut,$_table,$_condition));
 
-			$stmt = $this->pdo->query($requete);
+			}
+			$res = $this->pdo->query($requete);
+			
 			if($_attribut == "*"){
-				$res = $stmt->fetchall();
+				//$res = $stmt->fetch();
 			}
 			else{
-				$res = $stmt->fetch();
+				//$res = $stmt->fetch();
 			}
 			
-
+			
 			return $res;
 		}
 

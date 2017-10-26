@@ -1,5 +1,5 @@
 <?php
-require_once "bd.php";
+require_once "connexionbd.php";
 
 session_start();
 $_SESSION['form'] = $_POST;
@@ -74,6 +74,12 @@ $_SESSION['form'] = $_POST;
 			return 0;
 
 		}
+		/*function testLogin ($login){
+			require_once 'bd.php';
+			
+			$BDD->select("login","utilisateur","login=$login");
+			
+		}*/
 
 		// fonction de hashage du mdp
 
@@ -90,10 +96,14 @@ $_SESSION['form'] = $_POST;
 
 		
 		if (!empty($_POST)){
+			
+		
 			$_mail = htmlspecialchars($_POST['mail']);
 			$_login = htmlspecialchars($_POST['id']);
 		    $_password = htmlspecialchars($_POST['mdp']);
 		    $_conpass = htmlspecialchars($_POST['confirm_password']);
+
+		    $BDD->select("login","utilisateur","login=$_login");
 
  			// on test les champs et affiche les messages d'erreur si necessaire
 			$no_erreur_mail=erreurMail($_mail);
@@ -101,6 +111,7 @@ $_SESSION['form'] = $_POST;
             // on verifie que le formulaire à été validé
 			$test=testValue($_login,$_password,$_conpass);
 			
+			 testLogin($_login);
 	
 			// on créer et enregistre le nouvel utilisateur
 			if (($no_erreur_mail==1)&&($test==1)) {
@@ -110,7 +121,7 @@ $_SESSION['form'] = $_POST;
 				$utilisateur=new Utilisateur ($_mail,$_login,$hash,0);
 				// on l'ajoute dans la BD
 				$BDD->insertUtilisateur($utilisateur);
-
+                
 			//renvoie a la page de connexion
 				header("Location: main.php?message=Bienvenue ".$_POST['id']);
 			}
