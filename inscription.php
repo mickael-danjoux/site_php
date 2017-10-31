@@ -74,12 +74,7 @@ $_SESSION['form'] = $_POST;
 			return 0;
 
 		}
-		/*function testLogin ($login){
-			require_once 'bd.php';
-			
-			$BDD->select("login","utilisateur","login=$login");
-			
-		}*/
+		
 
 		// fonction de hashage du mdp
 
@@ -103,7 +98,17 @@ $_SESSION['form'] = $_POST;
 		    $_password = htmlspecialchars($_POST['mdp']);
 		    $_conpass = htmlspecialchars($_POST['confirm_password']);
 
-		    $BDD->select("login","utilisateur","login=$_login");
+
+	//On effectue la requête SQL pour vérifier si l'utilisateur n'existe pas déjà
+		$resultat = $BDD->select("*","utilisateur","login = '" . $_login . "'");
+
+
+		$resultat = $resultat->fetch();
+
+		//On regarde si notre résultat est vide, si il est vide celà veut dire que l'utilisateur n'existe pas
+		if(empty($resultat)){
+			
+		
 
  			// on test les champs et affiche les messages d'erreur si necessaire
 			$no_erreur_mail=erreurMail($_mail);
@@ -111,7 +116,7 @@ $_SESSION['form'] = $_POST;
             // on verifie que le formulaire à été validé
 			$test=testValue($_login,$_password,$_conpass);
 			
-			 testLogin($_login);
+			// testLogin($_login);
 	
 			// on créer et enregistre le nouvel utilisateur
 			if (($no_erreur_mail==1)&&($test==1)) {
@@ -123,7 +128,12 @@ $_SESSION['form'] = $_POST;
 				$BDD->insertUtilisateur($utilisateur);
                 
 			//renvoie a la page de connexion
-				header("Location: main.php?message=Bienvenue ".$_POST['id']);
+				header("Location: index.php?message=Bienvenue ".$_POST['id']);
+			}
+			}
+			else 
+				{
+					echo "Ce login existe déjà <br>";
 			}
 
 		}
