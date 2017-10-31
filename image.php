@@ -8,8 +8,9 @@
 		private $mot_cle;
 		private $url;
 		private $url_m;
+		private $url_copyright;
 
-		public function __construct($_nom,$_lieu,$_date,$_evenement,$_mot_cle,$_url,$_url_m){
+		public function __construct($_nom,$_lieu,$_date,$_evenement,$_mot_cle,$_url,$_url_m,$_url_copy){
 			$this->setNom($_nom);
 			$this->setLieu($_lieu);
 			$this->setDate($_date);
@@ -17,6 +18,8 @@
 			$this->setMot_cle($_mot_cle);
 			$this->setUrl($_url);
 			$this->setUrlm($_url_m);
+			$this->setUrlCopy($_url_copy);
+
 		}
 
 
@@ -76,33 +79,62 @@
 			return $this->url_m;
 		}
 
+		public function setUrlCopy($_url_copy){
+			$this->url_copyright = $_url_copy;
+		}
+
+		public function getUrlCopy(){
+			return $this->url_copyright;
+		}
+
 		public function afficheMiniature(){
-			echo "<div class=\"image\">";
-				echo "<div class=\"photo\">";
-					$tmp = "<img src=\"".$this->url_m."\">";
-					echo $tmp;
-				echo "</div>";
+			$min = "<div class='image'>";
+			$min .= "<div class='photo'>";
+				$min .= "<img src='".$this->url_m."'>";
+			$min .= "</div>";
+			$min .= "<div class='nom'>";
+				$min .= $this->nom;
+			$min .= "</div>";
+			$min .= "<div class='lieu'>";
+				$min .= $this->lieu;
+			$min .= "</div>";
+			$min .= "<div class='date'>";
+				$min .= $this->date;
+			$min .= "</div>";
+			$min .= "<div class='evenement'>";
+				$min .= $this->evenement;
+			$min .= "</div>";
+			$min .= "<div class='mot_cle'>";
+				$min .= $this->mot_cle;
+			$min .= "</div>";
+			$min .= "</div>";
 
-				echo "<div class=\"nom\">";
-					echo $this->nom;
-				echo "</div>";
+			return $min;
+		}
 
-				echo "<div class=\"lieu\">";
-					echo $this->lieu;
-				echo "</div>";
+		public function afficheMiniatureAvecSup(){
+			$min = "<div class='image'>";
+			$min .= "<div class='photo'>";
+				$min .= "<img src='".$this->url_m."'>";
+			$min .= "</div>";
+			$min .= "<div class='nom'>";
+				$min .= $this->nom;
+			$min .= "</div>";
+			$min .= "<div class='lieu'>";
+				$min .= $this->lieu;
+			$min .= "</div>";
+			$min .= "<div class='date'>";
+				$min .= $this->date;
+			$min .= "</div>";
+			$min .= "<div class='evenement'>";
+				$min .= $this->evenement;
+			$min .= "</div>";
+			$min .= "<div class='mot_cle'>";
+				$min .= $this->mot_cle;
+			$min .= "</div>";
+			$min .= "</div>";
 
-				echo "<div class=\"date\">";
-					echo $this->date;
-				echo "</div>";
-
-				echo "<div class=\"evenement\">";
-					echo $this->evenement;
-				echo "</div>";
-
-				echo "<div class=\"mot_cle\">";
-					echo $this->mot_cle;
-				echo "</div>";
-			echo "</div>";
+			return $min;
 		}
 
 	}

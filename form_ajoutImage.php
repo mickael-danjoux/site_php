@@ -57,24 +57,153 @@
 					//variable pour les url
 					$url = "images/reelle/".$nomI.'.'.$extensionUpload;
 					$urlm = "images/miniature/".$nomI.'.'.$extensionUpload;
+					$urlc = "images/copyright/".$nomI.'.'.$extensionUpload;
 
-					$image = new Image($nomI,$lieuI,$dateI,$evenementI,$mot_cleI,$url,$urlm);
+					$image = new Image($nomI,$lieuI,$dateI,$evenementI,$mot_cleI,$url,$urlm,$urlc);
+
 
 					//On ajoute la photo dans la base
 					$BDD->insertPhoto($image);
 
 					//On va chercher l'ID de la photo ajoutée à la BD
 					$resultat = $BDD->select("id","image","url = '".$url."'");
-					$resultat = $resultat->fetch();
+					$resultatSelect = $resultat->fetch();
 
-					$insert = "'images/reelle/".$resultat['id']."_".$nomI.".".$extensionUpload."'";
-					$condition = $resultat['id'];
+					//On modifie les url des images pour toutes les différencier
+					$idI = $resultatSelect['id'];
+					$insert = "'images/reelle/".$idI."_".$nomI.".".$extensionUpload."'";
+					
+
+					$BDD->modifierPhoto("url",$insert,$idI);
+
+					$insert = "'images/miniature/".$idI."_".$nomI.".".$extensionUpload."'";
+					$BDD->modifierPhoto("url_min",$insert,$idI);
+
+					$insert = "'images/copyright/".$idI."_".$nomI.".".$extensionUpload."'";
+					$BDD->modifierPhoto("url_copyright",$insert,$idI);
+
+					//Ensuite on enregistre la photo
+					$cheminDestination = "images/reelle/".$idI."_".$nomI.".".$extensionUpload;
+					$resultatTransfert = move_uploaded_file($_FILES['lienImage']['tmp_name'], $cheminDestination);
+					if($resultatTransfert){
+						echo "Transfert réussi";
+					}
 
 
-					$BDD->modifierPhoto("url",$insert,$condition);
+					//On regarde de quelle extension est notre fichier
+					if($extensionUpload == "jpg" || $extensionUpload == "jpeg"){
+							//On enregistre sa miniature
+						$nomDestination = "images/miniature/".$idI."_".$nomI.".".$extensionUpload;
+						$source = imagecreatefromjpeg($cheminDestination);
+						$destination = imagecreatetruecolor(239, 227);
+
+						$largeur_source = imagesx($source);
+						$hauteur_source = imagesy($source);
+
+						$largeur_destination = imagesx($destination);
+						$hauteur_destination = imagesy($destination);
+
+							//On crée la miniature
+						imagecopyresampled($destination, $source, 0, 0, 0, 0, $largeur_destination, $hauteur_destination, $largeur_source, $hauteur_source);
+
+							//On enregistre
+						imagejpeg($destination, $nomDestination);
+
+
+							//On crée le copyright
+						$nomDestination = "images/copyright/".$idI."_".$nomI.".".$extensionUpload;
+
+						$stamp = imagecreatetruecolor($largeur_source, $hauteur_source);
+							//On crée la couleur du text copyright
+						$grey = imagecolorallocate($stamp, 255, 255, 255);
+							//On ajoute la police du text copyright
+						$font = 'polices/consola.ttf';
+						imagettftext($stamp, 50, 0, imagesx($stamp)/5, imagesy($stamp)/2, $grey, $font, "Copyright");
+
+						$copyrightI = imagecreatetruecolor($largeur_source,$hauteur_source);
+
+						//on fusionne les deux 
+						imagecopyresampled($copyrightI, $source, 0, 0, 0, 0, $largeur_source, $hauteur_source, $largeur_source, $hauteur_source);
+						imagecopymerge($copyrightI, $stamp, 0, 0, 0, 0, imagesx($stamp), imagesy($stamp), 50);
+
+
+						imagejpeg($copyrightI, $nomDestination);
+
+					}
+					else if($extensionUpload == "gif"){
+							//On enregistre sa miniature
+						$nomDestination = "images/miniature/".$idI."_".$nomI.".".$extensionUpload;
+						$source = imagecreatefromgif($cheminDestination);
+						$destination = imagecreatetruecolor(239, 227);
+
+						$largeur_source = imagesx($source);
+						$hauteur_source = imagesy($source);
+
+						$largeur_destination = imagesx($destination);
+						$hauteur_destination = imagesy($destination);
+
+							//On crée la miniature
+						imagecopyresampled($destination, $source, 0, 0, 0, 0, $largeur_destination, $hauteur_destination, $largeur_source, $hauteur_source);
+
+							//On enregistre
+						imagegif($destination, $nomDestination);
+
+						//On crée le copyright
+						$nomDestination = "images/copyright/".$idI."_".$nomI.".".$extensionUpload;
+
+						$stamp = imagecreatetruecolor($largeur_source/2, $hauteur_source/2);
+							//On crée la couleur du text copyright
+						$grey = imagecolorallocate($stamp, 128, 128, 128);
+							//On ajoute la police du text copyright
+						$font = 'polices/consola.ttf';;
+						imagettftext($stamp, 20, 0, 0, 0, $grey, $font, "Copyright");
+
+						$copyrightI = imagecreatetruecolor($largeur_source,$hauteur_source);
+
+						//on fusionne les deux 
+						imagecopyresampled($copyrightI, $source, 0, 0, 0, 0, $largeur_source, $hauteur_source, $largeur_source, $hauteur_source);
+						imagecopymerge($copyrightI, $stamp, $largeur_source/4, $hauteur_source/4, 0, 0, imagesx($stamp), imagesy($stamp), 50);
+
+						imagegif($copyrightI, $nomDestination);
+					}
+					else if($extensionUpload == "png"){
+							//On enregistre sa miniature
+						$nomDestination = "images/miniature/".$idI."_".$nomI.".".$extensionUpload;
+						$source = imagecreatefrompng($cheminDestination);
+						$destination = imagecreatetruecolor(239, 227);
+
+						$largeur_source = imagesx($source);
+						$hauteur_source = imagesy($source);
+
+						$largeur_destination = imagesx($destination);
+						$hauteur_destination = imagesy($destination);
+
+							//On crée la miniature
+						imagecopyresampled($destination, $source, 0, 0, 0, 0, $largeur_destination, $hauteur_destination, $largeur_source, $hauteur_source);
+
+							//On enregistre
+						imagepng($destination, $nomDestination);
+
+						//On crée le copyright
+						$nomDestination = "images/copyright/".$idI."_".$nomI.".".$extensionUpload;
+
+						$stamp = imagecreatetruecolor($largeur_source/2, $hauteur_source/2);
+							//On crée la couleur du text copyright
+						$grey = imagecolorallocate($stamp, 128, 128, 128);
+							//On ajoute la police du text copyright
+						$font = 'polices/consola.ttf';;
+						imagettftext($stamp, 20, 0, 0, 0, $grey, $font, "Copyright");
+
+						$copyrightI = imagecreatetruecolor($largeur_source,$hauteur_source);
+
+						//on fusionne les deux 
+						imagecopyresampled($copyrightI, $source, 0, 0, 0, 0, $largeur_source, $hauteur_source, $largeur_source, $hauteur_source);
+						imagecopymerge($copyrightI, $stamp, $largeur_source/4, $hauteur_source/4, 0, 0, imagesx($stamp), imagesy($stamp), 50);
+
+						imagepng($copyrightI, $nomDestination);
+					}			
 
 					
-					die();
 					header('Location: administrateurAjout.php');
 				}
 			//}

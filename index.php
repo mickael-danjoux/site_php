@@ -71,8 +71,9 @@
 				else{
 					//On les affiche
 					foreach ($resultat as $row) {
-						$image = new Image($row[1],$row[2],$row[3],$row[4],$row[5],$row[6],$row[7]);
-						$image->afficheMiniature();
+						$image = new Image($row[1],$row[2],$row[3],$row[4],$row[5],$row[6],$row[7],$row[8]);
+						$afficheM = $image->afficheMiniature();
+						echo $afficheM;
 					}
 				}
 			}
@@ -83,8 +84,9 @@
 
 				//On les affiche
 				foreach ($resultat as $row) {
-					$image = new Image($row[1],$row[2],$row[3],$row[4],$row[5],$row[6],$row[7]);
-					$image->afficheMiniature();
+					$image = new Image($row[1],$row[2],$row[3],$row[4],$row[5],$row[6],$row[7],$row[8]);
+					$afficheM = $image->afficheMiniature();
+					echo $afficheM;
 				}
 			}
 		?>
