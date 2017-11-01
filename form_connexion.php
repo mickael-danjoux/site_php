@@ -20,8 +20,8 @@
 		$resultat = $BDD->select("*","utilisateur","login = '" . $id . "'");
 
 		//On hash le mot de passe poster pour le comparer à celui de la base de données
-		//$hash = PREFIXE.hash("sha256",$mdp).SUFFIXE;
-		$hash = $BDD->hash_password($mdp);
+		$hash = PREFIXE.hash("sha256",$mdp).SUFFIXE;
+		//$hash = $BDD->hash_password($mdp);
 
 		$resultat = $resultat->fetch();
 

@@ -153,11 +153,6 @@ mail($mail,$sujet,$message,$header);
 
 */
 
-
-
-
-
-
 			$newPass=$BDD->hash_password($pass);
 			 $BDD->modifierMdpUtilisateur($newPass,$_login);
 			 echo "Un mail a été envoyer à l'adresse correspondant au login : ".$_login;
