@@ -114,5 +114,30 @@
 			
 		}
 
+		// fonction pour modifier le MDP en cas d'oublie de mot de passe
+
+		public function modifierMdpUtilisateur($_string,$_login){
+			try{
+				
+
+				$requete='UPDATE `utilisateur` SET `password`="'.$_string.'"WHERE login="'.$_login.'"';
+				
+				$stmt = $this->pdo->query($requete);
+				
+
+			}
+			catch(PDOException $e){
+				echo "Echec lors de l'ajout : ".$e->getMessage();
+			}
+			
+		}
+
+		public function hash_password ($password){
+
+			$hash = PREFIXE.hash("sha256",$password).SUFFIXE;
+			return $hash;
+
+		}
+
 	}
 ?>

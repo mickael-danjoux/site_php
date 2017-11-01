@@ -1,7 +1,10 @@
+
 <?php
+
 	require_once('BDD.php');
 	$BDD = new BDD("root","site_php","","localhost");
 	$BDD->connexion();
+
 
 	//Pour éviter les erreurs d'accent dans les mots
 	$requete = $BDD->getPdo()->prepare("SET NAMES utf8");

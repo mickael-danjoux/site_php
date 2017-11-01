@@ -11,7 +11,7 @@ $_SESSION['form'] = $_POST;
 <html>
 <head>
 	<title>Inscription</title>
-	<link rel="stylesheet" type="text/css" href="theme.css">
+	<link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
 	<div class="wrapper">
@@ -75,27 +75,13 @@ $_SESSION['form'] = $_POST;
 
 		}
 		
-
-		// fonction de hashage du mdp
-
-		function hash_password ($password){
-
-			//Ajout d'un prefixe et d'une suffixe pour augmenter la sécurité des mots de passe
-			define("PREFIXE","15af14gh");
-			define("SUFFIXE","654ighj5");
-
-			$hash = PREFIXE.hash("sha256",$password).SUFFIXE;
-			return $hash;
-
-		}
-
 		
 		if (!empty($_POST)){
 			
 		
 			$_mail = htmlspecialchars($_POST['mail']);
-			$_login = htmlspecialchars($_POST['id']);
-		    $_password = htmlspecialchars($_POST['mdp']);
+			$_login = htmlspecialchars($_POST['login']);
+		    $_password = htmlspecialchars($_POST['password']);
 		    $_conpass = htmlspecialchars($_POST['confirm_password']);
 
 
@@ -121,14 +107,14 @@ $_SESSION['form'] = $_POST;
 			// on créer et enregistre le nouvel utilisateur
 			if (($no_erreur_mail==1)&&($test==1)) {
 
-				$hash=hash_password($_password);
+				$hash=$BDD->hash_password($_password);
 				// on créer un utilisateur
 				$utilisateur=new Utilisateur ($_mail,$_login,$hash,0);
 				// on l'ajoute dans la BD
 				$BDD->insertUtilisateur($utilisateur);
                 
 			//renvoie a la page de connexion
-				header("Location: index.php?message=Bienvenue ".$_POST['id']);
+				header("Location: index.php?message=Bienvenue ".$_POST['login']);
 			}
 			}
 			else 
@@ -145,8 +131,8 @@ $_SESSION['form'] = $_POST;
 
 			<input type="text" name ="mail" placeholder="Mail" value="<?php if (isset($_POST['mail'])&&testMail($_POST['mail'])==1){echo$_POST['mail']; }?>"/><br>
 
-			<input type="text" name="id" placeholder="Login"   value="<?php if (isset($_POST['id'])){echo$_POST['id']; }?>"/><br>
-			<input type="password" name="mdp" placeholder="Mot de passe"/><br>
+			<input type="text" name="login" placeholder="Login"   value="<?php if (isset($_POST['login'])){echo$_POST['login']; }?>"/><br>
+			<input type="password" name="password" placeholder="Mot de passe"/><br>
 			<input type="password" name="confirm_password" placeholder="Confirmer mot de passe"/>
 			
 			<input type="submit">
