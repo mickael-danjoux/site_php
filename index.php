@@ -23,6 +23,8 @@
 </head>
 <body>
 	<div id="bandeau">
+		
+			<a id='oubli_Mdp' href='oubli_Mdp.php'>Mot de passe oublié</a>
 		<?php
 			//On regarde si on a un message d'erreur
 			if(isset($_GET['message'])){
