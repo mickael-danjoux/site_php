@@ -2,6 +2,8 @@
 	session_start();
 
 	//On inclut les fichiers utilisés
+	require 'vendor/autoload.php';
+
 	require_once('form.php');
 	require_once('connexionbd.php');
 
@@ -12,6 +14,9 @@
 		}
 		
 	}
+
+	//Example d'utilisation de la classe utilisateur par composer
+	//$test = new Sitephp\Utilisateur();
 ?>
 
 <!DOCTYPE html>
