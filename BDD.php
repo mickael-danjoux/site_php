@@ -85,9 +85,9 @@
 
 		public function insertPhoto($image){
 
-			$requete = "INSERT INTO image (id,nom,lieu,date,evenement,mot_cle,url,url_min,url_copyright) values (default,?,?,?,?,?,?,?,?)";
+			$requete = "INSERT INTO image (id,nom,lieu,date,evenement,mot_cle,url,url_min,url_copyright,lien_page) values (default,?,?,?,?,?,?,?,?,?)";
 			$stmt = $this->pdo->prepare($requete);
-			$stmt->execute(array($image->getNom(),$image->getLieu(),$image->getDate(),$image->getEvenement(),$image->getMot_cle(),$image->getUrl(),$image->getUrlM(),$image->getUrlCopy())); 
+			$stmt->execute(array($image->getNom(),$image->getLieu(),$image->getDate(),$image->getEvenement(),$image->getMot_cle(),$image->getUrl(),$image->getUrlM(),$image->getUrlCopy(),$image->getLienPage())); 
 
 			//$requete = "INSERT INTO image values(default,'".$image->getNom()."','".$image->getLieu()."','".$image->getDate()."','".$image->getEvenement()."','".$image->getMot_cle()."','".$image->getUrl()."','".$image->getUrlM()."','".$image->getUrlCopy()."')";
 			//$stmt = $this->pdo->query($requete);

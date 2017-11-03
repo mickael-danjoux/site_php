@@ -24,7 +24,7 @@
 			?>
 				<ul id="menu_admin">
 					<li><a href="administrateurAjout.php">Ajout photo</a></li>
-					<li><a href="administrateurSuppr.php">Supprimer photo</a></li>
+					<li><a href="administrateurSuppr.php">Catalogue photo</a></li>
 				</ul>
 
 			<?php	
@@ -48,7 +48,7 @@
 				else{
 					//On les affiche
 					foreach ($resultat as $row) {
-						$image = new Image($row[1],$row[2],$row[3],$row[4],$row[5],$row[6],$row[7],$row[8]);
+						$image = new Image($row[1],$row[2],$row[3],$row[4],$row[5],$row[6],$row[7],$row[8],$row[9]);
 						$afficheM = $image->afficheMiniature();
 						echo $afficheM;
 					}
@@ -61,7 +61,7 @@
 
 				//On les affiche
 				foreach ($resultat as $row) {
-					$image = new Image($row[1],$row[2],$row[3],$row[4],$row[5],$row[6],$row[7],$row[8]);
+					$image = new Image($row[1],$row[2],$row[3],$row[4],$row[5],$row[6],$row[7],$row[8],$row[9]);
 					$afficheM = $image->afficheMiniature();
 					echo $afficheM;
 				}
