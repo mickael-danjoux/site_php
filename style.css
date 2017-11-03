@@ -67,7 +67,12 @@ div.image{
 	margin: 10px;
 }
 
+a#oubli_Mdp{
+	margin-bottom: 10%;
+}
+
 a#inscription{
+	
 	float: right;
 	margin-right: 1.5%;
 	margin-top: 0.5%;

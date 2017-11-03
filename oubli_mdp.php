@@ -41,7 +41,7 @@ $_SESSION['form'] = $_POST;
 		if(!empty($resultat)){
 
 			$pass=random_string(10);
-			echo $pass."<br>";
+			
 
 
 //envoie du mot de passe par mail
@@ -156,7 +156,8 @@ mail($mail,$sujet,$message,$header);
 			$newPass=$BDD->hash_password($pass);
 			 $BDD->modifierMdpUtilisateur($newPass,$_login);
 			 echo "Un mail a été envoyer à l'adresse correspondant au login : ".$_login;
-			 
+			 echo '<br>';
+			 echo "Cliquez <a href='index.php'> ici </a> pour retourner à la page d'accueil \n";
 		
 			
 			}
