@@ -24,7 +24,7 @@
 		?>
 			<ul id="menu_admin">
 				<li><a href="administrateurAjout.php">Ajout photo</a></li>
-				<li><a href="administrateurSuppr.php">Supprimer photo</a></li>
+				<li><a href="administrateurSuppr.php">Catalogue photo</a></li>
 			</ul>
 
 		<?php	

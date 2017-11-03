@@ -1,25 +1,14 @@
 <?php
 	session_start();
+	require_once('../form.php');
 
-	//On inclut les fichiers utilisés
-	require_once('form.php');
-	require_once('connexionbd.php');
-
-	//Vérification que l'utilisateur n'est pas admin, car il a une page spéciale pour le catalogue
-	if(isset($_SESSION['admin'])){
-		if($_SESSION['admin']){
-			header('Location: administrateurSuppr.php');
-		}
-		
-	}
+	$id = ;
 ?>
-
 <!DOCTYPE html>
 <html>
 <head>
 	<title>Site</title>
 	<link rel="stylesheet" type="text/css" href="style.css">
-	<META HTTP-EQUIV="CACHE-CONTROL" CONTENT="NO-CACHE">
 </head>
 <body>
 	<div id="bandeau">
@@ -30,7 +19,7 @@
 			}
 
 			//On ajoute une barre de recherche pour chercher les mots clé
-			echo "<div id=\"form_recherche\">";
+			echo "<div id='form_recherche'>";
 			$form_recherche = new form("recherche","form_recherche.php","post","");
 			$form_recherche->setinput("text","motcle","Recherche par mot-clé",0);
 			$form_recherche->setsubmit("validerrecherche","Go");
@@ -58,41 +47,37 @@
 		?>
 	</div>
 	<div id="contenu">
-		<?php
-			//On ajoute la recherche par mot clé
-			if(isset($_SESSION['motcle'])){
-				//On va chercher les images dans la base de données pour les afficher avec le mot clé
-				$resultat = $BDD->select("*","image","mot_cle like '%".$_SESSION['motcle']."%'");
+		<div class="imagepage">
+			<img src=''>
+		</div>
+		<div class="nompage">
+
+		</div>
+		<div class="lieupage">
+
+		</div>
+		<div class="datepage">
+
+		</div>
+		<div class="evenementpage">
 			
-				//Si le resultat est vide on affiche qu'il n'y a pas de photo avec ce mot clé
-				if($resultat == null){
-					echo "Aucune image ne correspond avec ce mot clé";
-				}
-				else{
-					//On les affiche
-					foreach ($resultat as $row) {
-						$image = new Image($row[1],$row[2],$row[3],$row[4],$row[5],$row[6],$row[7],$row[8],$row[9]);
-						$afficheM = $image->afficheMiniature();
-						echo $afficheM;
-					}
-				}
+		</div>
+		<div class="motclepage">
+			
+		</div>
+		
+		<?php
+			if(isset($_SESSION['id'],$_SESSION['mdp'],$_SESSION['mail'],$_SESSION['admin']) && $_SESSION['admin'] == 1){
+				$form_suppr = new form("suppression","form_suppression.php","post","");
+				$form_deconnexion->setsubmit("validersuppession","Supprimer");
+				$form_deconnexion->getform();
 			}
 			else{
-				//On va chercher les images dans la base de données pour les afficher
-				$resultat = $BDD->select("*","image","");
-			
-
-				//On les affiche
-				foreach ($resultat as $row) {
-					$image = new Image($row[1],$row[2],$row[3],$row[4],$row[5],$row[6],$row[7],$row[8],$row[9]);
-					$afficheM = $image->afficheMiniature();
-					echo $afficheM;
-				}
+				$form_suppr = new form("ajouterpanier","form_ajouterpanier.php","post","");
+				$form_deconnexion->setsubmit("ajouteraupanier","Ajouter au panier");
+				$form_deconnexion->getform();
 			}
-		?>
-	</div>
-	<div id="piedpage">
-
+		?>		
 	</div>
 </body>
 </html>

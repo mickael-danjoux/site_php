@@ -23,6 +23,7 @@
 				//substr ignore le premier caractère de la chaine
 				//strtolower met l'extension en minuscule
 				$extensionUpload = strtolower(substr(strrchr($_FILES['lienImage']['name'],'.'),1));
+
 				if(!in_array($extensionUpload,$extensionsValides)){
 					header("Location: administrateurAjout.php?erreur=Le fichier n'est pas une image");
 				}
@@ -58,8 +59,9 @@
 					$url = "images/reelle/".$nomI.'.'.$extensionUpload;
 					$urlm = "images/miniature/".$nomI.'.'.$extensionUpload;
 					$urlc = "images/copyright/".$nomI.'.'.$extensionUpload;
+					$lienp = "pagesImages/".$nomI.'.php';
 
-					$image = new Image($nomI,$lieuI,$dateI,$evenementI,$mot_cleI,$url,$urlm,$urlc);
+					$image = new Image($nomI,$lieuI,$dateI,$evenementI,$mot_cleI,$url,$urlm,$urlc,$lienp);
 
 
 					//On ajoute la photo dans la base
@@ -81,6 +83,10 @@
 
 					$insert = "'images/copyright/".$idI."_".$nomI.".".$extensionUpload."'";
 					$BDD->modifierPhoto("url_copyright",$insert,$idI);
+
+					$insert = "'pagesImages/".$idI."_".$nomI.".php'";
+					$BDD->modifierPhoto("lien_page",$insert,$idI);
+
 
 					//Ensuite on enregistre la photo
 					$cheminDestination = "images/reelle/".$idI."_".$nomI.".".$extensionUpload;
@@ -203,7 +209,9 @@
 						imagepng($copyrightI, $nomDestination);
 					}			
 
-					
+					//On crée la page de la photo
+					$image->creationPage();
+
 					header('Location: administrateurAjout.php');
 				}
 			//}

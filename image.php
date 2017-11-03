@@ -1,4 +1,6 @@
 <?php
+	require_once('connexionbd.php');
+
 	class Image{
 		private $id;
 		private $nom;
@@ -9,8 +11,9 @@
 		private $url;
 		private $url_m;
 		private $url_copyright;
+		private $lien_page;
 
-		public function __construct($_nom,$_lieu,$_date,$_evenement,$_mot_cle,$_url,$_url_m,$_url_copy){
+		public function __construct($_nom,$_lieu,$_date,$_evenement,$_mot_cle,$_url,$_url_m,$_url_copy,$_lien_page){
 			$this->setNom($_nom);
 			$this->setLieu($_lieu);
 			$this->setDate($_date);
@@ -19,6 +22,7 @@
 			$this->setUrl($_url);
 			$this->setUrlm($_url_m);
 			$this->setUrlCopy($_url_copy);
+			$this->setLienPage($_lien_page);
 
 		}
 
@@ -87,6 +91,19 @@
 			return $this->url_copyright;
 		}
 
+		public function setLienPage($_lien_page){
+			$this->lien_page = $_lien_page;
+		}
+
+		public function getLienPage(){
+			return $this->lien_page;
+		}
+
+		public function getId(){
+			$resultat = $BDD->select("id","image","url ='".$this->url."'");
+			return $resultat;
+		}
+
 		public function afficheMiniature(){
 			$min = "<div class='image'>";
 			$min .= "<div class='photo'>";
@@ -112,29 +129,41 @@
 			return $min;
 		}
 
-		public function afficheMiniatureAvecSup(){
-			$min = "<div class='image'>";
-			$min .= "<div class='photo'>";
-				$min .= "<img src='".$this->url_m."'>";
-			$min .= "</div>";
-			$min .= "<div class='nom'>";
-				$min .= $this->nom;
-			$min .= "</div>";
-			$min .= "<div class='lieu'>";
-				$min .= $this->lieu;
-			$min .= "</div>";
-			$min .= "<div class='date'>";
-				$min .= $this->date;
-			$min .= "</div>";
-			$min .= "<div class='evenement'>";
-				$min .= $this->evenement;
-			$min .= "</div>";
-			$min .= "<div class='mot_cle'>";
-				$min .= $this->mot_cle;
-			$min .= "</div>";
-			$min .= "</div>";
+		public function creationPage(){
+			//On créer le fichier
+			try {
+				$fichier = fopen($this->lien_page, "a");
+			} 
+			catch (Exception $e) {
+				echo $e;
+			}
 
-			return $min;
+			//On ouvre le fichier exemple 
+			try {
+				$fichierexemple = fopen("pagesImages/exemple.php", "r");
+			} 
+			catch (Exception $e) {
+				echo $e;
+			}
+
+			//On lit le fichier exemple
+			$contenu = fgets($fichierexemple);
+			for ($i=1; $i < 83; $i++) { 
+				$contenu .= fgets($fichierexemple);
+			}
+
+			//On ferme le fichier exemple
+			fclose($fichierexemple);
+			
+			//on écrit dans le fichier
+			fputs($fichier,$contenu);
+
+			//On complète le fichier
+			
+
+				
+			//On ferme le fichier
+			fclose($fichier);
 		}
 
 	}
