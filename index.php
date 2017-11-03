@@ -24,7 +24,7 @@
 <body>
 	<div id="bandeau">
 		
-			<a id='oubli_Mdp' href='oubli_Mdp.php'>Mot de passe oublié</a>
+			
 		<?php
 			//On regarde si on a un message d'erreur
 			if(isset($_GET['message'])){
@@ -45,6 +45,10 @@
 				$form_deconnexion = new form("deconnexion","deconnexion.php","post","");
 				$form_deconnexion->setsubmit("validerdeconnexion","Deconnexion");
 				$form_deconnexion->getform();
+
+				//lien changer mot de passe
+
+				echo "<a id='changer_Mdp' href='changer_mdp.php'>Changer de mot de passe</a>";
 			}
 			else{
 				//Formulaire de connexion
@@ -53,6 +57,10 @@
 				$form_connexion->setinput("password","mdp","Mot de passe",1);
 				$form_connexion->setsubmit("validerconnexion","Connexion");
 				$form_connexion->getform();
+
+				//lien mot de passe oublié
+
+				echo "<a id='oubli_Mdp' href='oubli_Mdp.php'>Mot de passe oublié</a>";
 
 				//Lien d'inscription
 				echo "<a id='inscription' href='inscription.php'>Inscription</a>";
