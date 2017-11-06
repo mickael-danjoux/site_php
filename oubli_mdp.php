@@ -1,5 +1,6 @@
 <?php
 require_once "connexionbd.php";
+require_once "form.php";
 
 session_start();
 $_SESSION['form'] = $_POST;
@@ -15,33 +16,38 @@ $_SESSION['form'] = $_POST;
 	<link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
-<div class="wrapper">
-	<h1> Mot de passe oublié </h1>
-	<p>Entrez votre login, nous vous enverrons un nouveau mot de passe à votre adresse mail.</p>
+	<div class="wrapper">
+		<h1> Mot de passe oublié </h1>
+		<p>Entrez votre login, nous vous enverrons un nouveau mot de passe à votre adresse mail.</p>
 
-	<?php  
+		<?php  
 
  		// fonction qui génère une chaine de charactère aléatoire
-	function random_string($length){
-    $chars = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
-    $string = '';
-    for($i=0; $i<$length; $i++){
-        $string .= $chars[rand(0, strlen($chars)-1)];
-    }
-    return $string;
-}
+		function random_string($length){
+			$chars = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+			$string = '';
+			for($i=0; $i<$length; $i++){
+				$string .= $chars[rand(0, strlen($chars)-1)];
+			}
+			//l'envoi de mail n'ayant pas été possible en travaillant en local, on affiche le mot de passe pour notre version test
+			//ceci n'est absolument pas sécurisé car n'importe qui peut obtenir le mdp pour un login donné
+			//ceci sera réctifié lorsque l'envoi de mail sera possible
+			echo $string;
+			echo "<br>";
+			return $string;
+		}
 
-	if(!empty($_POST)){
-		$_login = htmlspecialchars($_POST['login']);
+		if(!empty($_POST)){
+			$_login = htmlspecialchars($_POST['login']);
 
 		//On effectue la requête SQL pour vérifier si l'utilisateur est inscrit 
-		$resultat = $BDD->select("*","utilisateur","login = '" . $_login . "'");
-		$resultat = $resultat->fetch();
-		
-		if(!empty($resultat)){
+			$resultat = $BDD->select("*","utilisateur","login = '" . $_login . "'");
+			$resultat = $resultat->fetch();
 
-			$pass=random_string(10);
-			
+			if(!empty($resultat)){
+
+				$pass=random_string(10);
+
 
 
 //envoie du mot de passe par mail
@@ -153,31 +159,36 @@ mail($mail,$sujet,$message,$header);
 
 */
 
-			$newPass=$BDD->hash_password($pass);
-			 $BDD->modifierMdpUtilisateur($newPass,$_login);
-			 echo "Un mail a été envoyer à l'adresse correspondant au login : ".$_login;
-			 echo '<br>';
-			 echo "Cliquez <a href='index.php'> ici </a> pour retourner à la page d'accueil \n";
-		
-			
-			}
-			
-			else{
-				
-				echo "Ce login n'existe pas, veuillez entré un login existant <br> ";
-			}
-
-	}
+$newPass=$BDD->hash_password($pass);
+$BDD->modifierMdpUtilisateur($newPass,$_login);
+echo "Un mail a été envoyer à l'adresse correspondant au login : ".$_login;
+echo '<br>';
+echo "Cliquez <a href='index.php'> ici </a> pour retourner à la page d'accueil \n";
 
 
-	?>
+}
 
-	<form name="oubli_mdp" method="post">
-		
-		<input type="text" name="login" placeholder="Login" /><br>
-		<input type="submit"/>
-			<input type="reset"/><br>
-	</form>
+else{
+
+	echo "Ce login n'existe pas, veuillez entré un login existant <br> ";
+}
+
+}
+
+$form_oubli_mdp=new form("oubli_mdp","oubli_mdp.php","post","");
+$form_oubli_mdp->setinput("text","login","Login",1);
+
+
+$form_oubli_mdp->setsubmit("valider_oubli_mdp","valider");
+$form_oubli_mdp->setinput("reset","resset_oubli_mdp","",0);
+$form_oubli_mdp->getform();
+
+
+
+
+?>
+
+
 </div>
 </body>
 </html>

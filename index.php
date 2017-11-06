@@ -1,17 +1,17 @@
 <?php
-	session_start();
+session_start();
 
 	//On inclut les fichiers utilisés
-	require_once('form.php');
-	require_once('connexionbd.php');
+require_once('form.php');
+require_once('connexionbd.php');
 
 	//Vérification que l'utilisateur n'est pas admin, car il a une page spéciale pour le catalogue
-	if(isset($_SESSION['admin'])){
-		if($_SESSION['admin']){
-			header('Location: administrateurSuppr.php');
-		}
-		
+if(isset($_SESSION['admin'])){
+	if($_SESSION['admin']){
+		header('Location: administrateurSuppr.php');
 	}
+	
+}
 ?>
 
 <!DOCTYPE html>
@@ -20,12 +20,12 @@
 	<title>Site</title>
 	<link rel="stylesheet" type="text/css" href="style.css">
 	<META HTTP-EQUIV="CACHE-CONTROL" CONTENT="NO-CACHE">
-</head>
-<body>
-	<div id="bandeau">
-		
-			<a id='oubli_Mdp' href='oubli_Mdp.php'>Mot de passe oublié</a>
-		<?php
+	</head>
+	<body>
+		<div id="bandeau">
+			
+			
+			<?php
 			//On regarde si on a un message d'erreur
 			if(isset($_GET['message'])){
 				echo $_GET['message'];
@@ -45,6 +45,10 @@
 				$form_deconnexion = new form("deconnexion","deconnexion.php","post","");
 				$form_deconnexion->setsubmit("validerdeconnexion","Deconnexion");
 				$form_deconnexion->getform();
+
+				//lien changer mot de passe
+
+				echo "<a id='changer_Mdp' href='changer_mdp.php'>Changer de mot de passe</a>";
 			}
 			else{
 				//Formulaire de connexion
@@ -54,18 +58,22 @@
 				$form_connexion->setsubmit("validerconnexion","Connexion");
 				$form_connexion->getform();
 
+				//lien mot de passe oublié
+
+				echo "<a id='oubli_Mdp' href='oubli_Mdp.php'>Mot de passe oublié</a>";
+
 				//Lien d'inscription
 				echo "<a id='inscription' href='inscription.php'>Inscription</a>";
 			}
-		?>
-	</div>
-	<div id="contenu">
-		<?php
+			?>
+		</div>
+		<div id="contenu">
+			<?php
 			//On ajoute la recherche par mot clé
 			if(isset($_SESSION['motcle'])){
 				//On va chercher les images dans la base de données pour les afficher avec le mot clé
 				$resultat = $BDD->select("*","image","mot_cle like '%".$_SESSION['motcle']."%'");
-			
+				
 				//Si le resultat est vide on affiche qu'il n'y a pas de photo avec ce mot clé
 				if($resultat == null){
 					echo "Aucune image ne correspond avec ce mot clé";
@@ -82,7 +90,7 @@
 			else{
 				//On va chercher les images dans la base de données pour les afficher
 				$resultat = $BDD->select("*","image","");
-			
+				
 
 				//On les affiche
 				foreach ($resultat as $row) {
@@ -91,10 +99,10 @@
 					echo $afficheM;
 				}
 			}
-		?>
-	</div>
-	<div id="piedpage">
+			?>
+		</div>
+		<div id="piedpage">
 
-	</div>
-</body>
-</html>
+		</div>
+	</body>
+	</html>
