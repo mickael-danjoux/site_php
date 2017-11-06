@@ -1,6 +1,7 @@
 <?php
 session_start();
 require_once "connexionbd.php";
+require_once "form.php";
 
 
 $_SESSION['form'] = $_POST;
@@ -26,7 +27,7 @@ $_SESSION['form'] = $_POST;
 		$_login = $_SESSION['id'];
 		$password=$_POST["password"];
 		$newPassword=$_POST["newPassword"];
-	
+		
 
 		//On effectue la requête SQL pour vérifier si l'utilisateur est inscrit 
 		$resultat = $BDD->select("*","utilisateur","login = '" . $_login . "'");
@@ -63,20 +64,20 @@ $_SESSION['form'] = $_POST;
 			echo "Une erreur est survenu, veuillez vous reconnecté en clicant <a href='index.php'> ici </a>\n";
 		}
 
-}
+	}
+
+	$form_changer_mdp=new form("changer_mdp","changer_mdp.php","post","");
+	$form_changer_mdp->setinput("password","password","mot de passe",1);
+	$form_changer_mdp->setinput("password","newPassword","nouveau mot de passe",1);
+	$form_changer_mdp->setinput("password","confirmPassword","confirmez mot de passe",1);
+	$form_changer_mdp->setsubmit("valider_changer_mdp","valider");
+	$form_changer_mdp->setinput("reset","resset_changer_mdp","",0);
+	$form_changer_mdp->getform();
 
 
 	?>
 
-	<form name="changer_mdp" method="post">
-		
-		<input type="password" name="password" placeholder="mot de passe" /><br>
-		<input type="password" name="newPassword" placeholder="nouveau mot de passe" /><br>
-		<input type="password" name="confirmPassword" placeholder="confirmez mot de passe" /><br>
-
-		<input type="submit"/>
-			<input type="reset"/><br>
-	</form>
+	
 </div>
 </body>
 </html>
