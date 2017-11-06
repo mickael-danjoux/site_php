@@ -48,31 +48,13 @@ class BDD{
 	}
 
 	public function select($_attribut,$_table,$_condition){
-		if($_condition == ""){
-				//$requete = "SELECT ? FROM ?";
-				//$requete = $this->pdo->prepare($requete);
+		$requete = "SELECT $_attribut FROM $_table";
 
-				//$requete->execute(array($_attribut,$_table));
-
-			$requete = "SELECT ".$_attribut." FROM ".$_table;
-
+		if($_condition != ""){
+			$requete .= " WHERE $_condition";
 		}
-		else{
-			$requete = "SELECT ".$_attribut." FROM ".$_table." WHERE ".$_condition;
-				//$requete = $this->pdo->prepare("SELECT ? FROM ? WHERE ?");
-				//$requete->execute(array($_attribut,$_table,$_condition));
-
-		}
+		
 		$res = $this->pdo->query($requete);
-		
-		if($_attribut == "*"){
-				//$res = $stmt->fetch();
-		}
-		else{
-				//$res = $stmt->fetch();
-		}
-		
-		
 		return $res;
 	}
 
@@ -137,12 +119,12 @@ class BDD{
 		$hash = PREFIXE.hash("sha256",$password).SUFFIXE;
 		return $hash;
 
-		public function deleteImage($_id){
+	}
+
+	public function deleteImage($_id){
 			$requete = "DELETE FROM image WHERE id ='".$_id."'";
 			$stmt = $this->pdo->query($requete);
 		}
-
-	}
 
 }
 ?>

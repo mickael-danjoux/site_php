@@ -54,7 +54,7 @@
 		<?php
 			echo "<div class='imagepage'>";
 				//On regarde si l'utilisateur est administrateur ou pas, si non, on affiche les photos avec un copyright
-				if($_SESSION['admin'] == 1){
+				if(isset($_SESSION['admin']) && $_SESSION['admin'] == 1){
 					echo "<img src='../".$image->getUrl()."'>";
 				}
 				else{

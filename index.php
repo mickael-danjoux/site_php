@@ -10,7 +10,6 @@ if(isset($_SESSION['admin'])){
 	if($_SESSION['admin']){
 		header('Location: administrateurSuppr.php');
 	}
-	
 }
 ?>
 
@@ -91,7 +90,6 @@ if(isset($_SESSION['admin'])){
 				//On va chercher les images dans la base de données pour les afficher
 				$resultat = $BDD->select("*","image","");
 				
-
 				//On les affiche
 				foreach ($resultat as $row) {
 					$image = new Image($row[1],$row[2],$row[3],$row[4],$row[5],$row[6],$row[7],$row[8],$row[9]);
