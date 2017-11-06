@@ -42,7 +42,7 @@
 		}
 
 		public function setHidden($_name,$_value){
-			$this->form .= "<input type ='hidden' name ='".$_name."' value='".$_value."'>";
+			$this->form .= "<input type='hidden' name='".$_name."' value='".$_value."'>";
 		}
 
 	}

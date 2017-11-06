@@ -122,9 +122,15 @@ class BDD{
 	}
 
 	public function deleteImage($_id){
-			$requete = "DELETE FROM image WHERE id ='".$_id."'";
-			$stmt = $this->pdo->query($requete);
-		}
+		$requete = "DELETE FROM image WHERE id ='".$_id."'";
+		$stmt = $this->pdo->query($requete);
+	}
+
+	public function insertAchat($_login, $_image){
+		$requete = "INSERT INTO achat(login,id_image) values(?,?)";
+		$stmt = $this->pdo->prepare($requete);
+		$stmt->execute(array($_login,$_image));
+	}
 
 }
 ?>

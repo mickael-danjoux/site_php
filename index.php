@@ -46,8 +46,10 @@ if(isset($_SESSION['admin'])){
 				$form_deconnexion->getform();
 
 				//lien changer mot de passe
-
 				echo "<a id='changer_Mdp' href='changer_mdp.php'>Changer de mot de passe</a>";
+
+				//lien changer mot de passe
+				echo "<a id='lienPanier' href='panier.php'>Panier</a>";
 			}
 			else{
 				//Formulaire de connexion

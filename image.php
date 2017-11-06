@@ -152,7 +152,7 @@
 
 			//On lit le fichier exemple
 			$contenu = fgets($fichierexemple);
-			for ($i=1; $i < 94; $i++) { 
+			for ($i=1; $i < 98; $i++) { 
 				$contenu .= fgets($fichierexemple);
 			}
 

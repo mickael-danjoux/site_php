@@ -3,7 +3,7 @@
 	require_once('../form.php');
 	require_once('../connexionbd.php');
 	
-	$id = 1;                                                                                                           
+	$id = 1;                                                                                                             
 
 	//On va chercher la photo dans la bd
 	$resultat = $BDD->select("*","image","id = '".$id."'");
@@ -36,6 +36,9 @@
 				$form_deconnexion = new form("deconnexion","deconnexion.php","post","");
 				$form_deconnexion->setsubmit("validerdeconnexion","Deconnexion");
 				$form_deconnexion->getform();
+
+				//lien changer mot de passe
+				echo "<a id='lienPanier' href='../panier.php'>Panier</a>";
 			}
 			else{
 				//Formulaire de connexion
@@ -84,7 +87,8 @@
 				$form_suppr->getform();
 			}
 			else{
-				$form_ajouterpanier = new form("ajouterpanier","form_ajouterpanier.php","post","");
+				$form_ajouterpanier = new form("ajouterpanier","form_ajoutPanier.php","post","");
+				$form_ajouterpanier->setHidden("valeurIdImage",$id);
 				$form_ajouterpanier->setsubmit("ajouteraupanier","Ajouter au panier");
 				$form_ajouterpanier->getform();
 			}
