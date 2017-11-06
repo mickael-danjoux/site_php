@@ -86,6 +86,9 @@
 
 					$insert = "'pagesImages/".$idI."_".$nomI.".php'";
 					$BDD->modifierPhoto("lien_page",$insert,$idI);
+					$insert = "pagesImages/".$idI."_".$nomI.".php";
+					$image->setLienPage($insert);
+					$image->setId($idI);
 
 
 					//Ensuite on enregistre la photo

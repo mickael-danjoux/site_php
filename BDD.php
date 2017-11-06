@@ -139,5 +139,10 @@
 
 		}
 
+		public function deleteImage($_id){
+			$requete = "DELETE FROM image WHERE id ='".$_id."'";
+			$stmt = $this->pdo->query($requete);
+		}
+
 	}
 ?>

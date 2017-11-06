@@ -104,10 +104,14 @@
 			return $resultat;
 		}
 
+		public function setId($_id){
+			$this->id = $_id;
+		}
+
 		public function afficheMiniature(){
 			$min = "<div class='image'>";
 			$min .= "<div class='photo'>";
-				$min .= "<img src='".$this->url_m."'>";
+				$min .= "<a href='".$this->lien_page."'><img src='".$this->url_m."'></a>";
 			$min .= "</div>";
 			$min .= "<div class='nom'>";
 				$min .= $this->nom;
@@ -148,7 +152,7 @@
 
 			//On lit le fichier exemple
 			$contenu = fgets($fichierexemple);
-			for ($i=1; $i < 83; $i++) { 
+			for ($i=1; $i < 94; $i++) { 
 				$contenu .= fgets($fichierexemple);
 			}
 
@@ -158,13 +162,32 @@
 			//on écrit dans le fichier
 			fputs($fichier,$contenu);
 
-			//On complète le fichier
+			//on ferme le fichier puis on le rouvre avec l'option r+ (pour se mettre au début du fichier car ça ne marche pas sinon)
+			fclose($fichier);
+			try {
+				$fichier = fopen($this->lien_page, "r+");
+			} 
+			catch (Exception $e) {
+				echo $e;
+			}
+
+			//On se déplace de 6 lignes pour aller à celle de 'id ='
+			for ($i=0; $i < 5; $i++) { 
+				$temp = fgets($fichier);
+			}
+
+			//On se déplace de 7 caratères pour être après le "="
+			for ($i=0; $i < 7; $i++) { 
+				$temp = fgetc($fichier);
+			}
 			
+
+			//On complète le fichier
+			fputs($fichier,$this->id.";");
 
 				
 			//On ferme le fichier
 			fclose($fichier);
 		}
-
 	}
 ?>
