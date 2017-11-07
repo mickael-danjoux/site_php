@@ -45,5 +45,30 @@
 			$this->form .= "<input type='hidden' name='".$_name."' value='".$_value."'>";
 		}
 
+		public function setinputValue($_type,$_name,$_placeholder,$_required,$_value){
+			$this->form .= "<input type='".$_type."'";
+
+			if($_name != ""){
+				$this->form .= " name='".$_name."'";
+			}
+
+			if($_placeholder != ""){
+				$this->form .= " placeholder='".$_placeholder."'";
+			}
+
+			if($_required){
+				$this->form .= " required";
+			}
+			if($_value!=""){
+				$this->form .= " value='".$_value."'";
+			}
+
+			$this->form .= ">";
+
+		}
+
+
 	}
+
+
 ?>

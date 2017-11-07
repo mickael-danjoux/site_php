@@ -1,5 +1,6 @@
 <?php
 require_once "connexionbd.php";
+require_once"form.php";
 
 session_start();
 $_SESSION['form'] = $_POST;
@@ -123,20 +124,28 @@ $_SESSION['form'] = $_POST;
 			}
 
 		}
+
+		if (isset($_POST['mail'])&&testMail($_POST['mail'])==1){
+			$a=$_POST['mail'];
+		}
+
+		 if (isset($_POST['login'])){
+		 	$b=$_POST['login']; 
+		 }
+
+		$form_inscription=new form("Inscription","inscription.php","post","");
+		$form_inscription->setinputValue("text","mail","Mail",1,"<?php if (isset($_POST['mail'])&&testMail($_POST['mail'])==1){echo$_POST['mail']; }?>");
+		$form_inscription->setinputValue("text","login","Login",1,$b);
+		$form_inscription->setinput("password","password","Mot de passe",1);
+		$form_inscription->setinput("password","confirm_password","Mot de passe",1);
+		$form_inscription->setsubmit("valider_inscription","Valider");
+		$form_inscription->setinput("reset","resset_inscription","",0);
+		$form_inscription->getform();
 		
 
 		?>
 		
-		<form name="Inscription" method="post">
-
-			<input type="text" name ="mail" placeholder="Mail" value="<?php if (isset($_POST['mail'])&&testMail($_POST['mail'])==1){echo$_POST['mail']; }?>"/><br>
-
-			<input type="text" name="login" placeholder="Login"   value="<?php if (isset($_POST['login'])){echo$_POST['login']; }?>"/><br>
-			<input type="password" name="password" placeholder="Mot de passe"/><br>
-			<input type="password" name="confirm_password" placeholder="Confirmer mot de passe"/>
-			
-			<input type="submit">
-			<input type="reset"><br>
+		
 		</form>
 	</div>
 </body>
