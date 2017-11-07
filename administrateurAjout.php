@@ -48,6 +48,7 @@
 			$formAjoutPhoto->setinput("text","anneeImage","AAAA",1);
 			$formAjoutPhoto->setinput("text","evenementImage","Evenement",1);
 			$formAjoutPhoto->setinput("text","mot_cleImage","Mot(s) clé",0);
+			$formAjoutPhoto->setinput("text","prixImage","Prix €",1);
 			$formAjoutPhoto->setsubmit("validerAjout","Ajouter");
 			$formAjoutPhoto->getform();
 		?>

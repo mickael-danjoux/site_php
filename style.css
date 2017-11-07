@@ -16,6 +16,7 @@ body{
 	margin: 0;
 }
 
+/*login du bandeau*/
 input[name='id']{
 	padding: 5px;
 	margin-top: 2px;
@@ -24,6 +25,7 @@ input[name='id']{
 	float: right;
 }
 
+/*mdp du bandeau*/
 input[name='mdp']{
 	padding: 5px;
 	margin-left: 88%;
@@ -33,6 +35,7 @@ input[name='mdp']{
 	float: right;
 }
 
+/*Connexion du bandeau*/
 input[name='validerconnexion']{
 	padding: 5px;
 	margin-right: 2.45%;
@@ -40,6 +43,7 @@ input[name='validerconnexion']{
 	float: right;
 }
 
+/*Déconnexion du bandeau*/
 input[name='validerdeconnexion']{
 	padding: 5px;
 	margin-right: 2.45%;
@@ -47,6 +51,7 @@ input[name='validerdeconnexion']{
 	float: right;
 }
 
+/*formulaire mot clé du bandeau*/
 div#form_recherche{
 	width: 250px;
 	float: left;
@@ -54,10 +59,29 @@ div#form_recherche{
 	margin-top: 1.5%;
 }
 
+/*Go des mots clé du bandeau*/
 input[name='motcle'],input[name='validerrecherche']{
 	padding: 10px;
 }
 
+/*Lien mot de passe oublé et inscription du bandeau*/
+a#inscription,a#oubli_Mdp{
+	float: right;
+	margin-right: 0.3%;
+	margin-top: 0.15%;
+	background-color: #E8E8E8;
+	border: 1px solid #9E9E9E;
+	padding: 3px;
+	text-decoration: none;
+	font-family: Calibri;
+	color: black;
+}
+
+ a#inscription:hover,a#oubli_Mdp:hover{
+	border-color: #696969;
+}
+
+/*Images du contenu catalogue*/
 div.image{
 	width: 239px;
 	border: solid 2px lightgray;
@@ -66,16 +90,8 @@ div.image{
 	float: left;
 	margin: 10px;
 }
-
-a#oubli_Mdp{
-	margin-bottom: 10%;
-}
-
-a#inscription{
-	
-	float: right;
-	margin-right: 1.5%;
-	margin-top: 0.5%;
+div.image:hover{
+	border-color: #696969;
 }
 
 ul#menu_admin li { 
@@ -89,3 +105,5 @@ ul#menu_admin {
 	margin-top: 2%;
 	margin-left: 5%;
 }
+
+

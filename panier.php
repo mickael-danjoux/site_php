@@ -43,10 +43,10 @@
 				foreach ($_SESSION['panier'] as $key) {
 					$resultat = $BDD->select("*","image","id = '".$key."'");
 					$resultat = $resultat->fetch();
-					echo "<tr><td>".$resultat[0]."</td><td>".$resultat[1]."</td><td>"."12€"."</td></tr>";
-					$prixTotal += 12;
+					echo "<tr><td>".$resultat[0]."</td><td>".$resultat[1]."</td><td>".$resultat[10]." €</td></tr>";
+					$prixTotal += $resultat[10];
 				}
-				echo "<tr><td></td><td>Prix Total :</td><td>".$prixTotal."€</td></tr>";
+				echo "<tr><td></td><td>Prix Total :</td><td>".$prixTotal." €</td></tr>";
 			}
 			?>
 		</table>

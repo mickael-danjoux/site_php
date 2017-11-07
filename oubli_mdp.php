@@ -1,14 +1,11 @@
 <?php
-require_once "connexionbd.php";
-require_once "form.php";
+	session_start();
+	require_once("connexionbd.php");
+	require_once("form.php");
+	require_once("fonctions_oublimdp.php");
 
-session_start();
-$_SESSION['form'] = $_POST;
-
-
-
+	$_SESSION['form'] = $_POST;
 ?>
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -16,179 +13,157 @@ $_SESSION['form'] = $_POST;
 	<link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
-	<div class="wrapper">
+	<div id="bandeau">
+		<?php
+			//On regarde si on a un message d'erreur
+			if(isset($_GET['message'])){
+				echo $_GET['message'];
+			}
+
+			//On ajoute un lien sur la page d'accueil
+			echo "<a id='accueil' href='index.php'>Accueil</a>";
+				
+		?>
+	</div>
+	<div class="contenu">
 		<h1> Mot de passe oublié </h1>
 		<p>Entrez votre login, nous vous enverrons un nouveau mot de passe à votre adresse mail.</p>
 
-		<?php  
+		<?php
+			if(!empty($_POST)){
+				$_login = htmlspecialchars($_POST['login']);
 
- 		// fonction qui génère une chaine de charactère aléatoire
-		function random_string($length){
-			$chars = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
-			$string = '';
-			for($i=0; $i<$length; $i++){
-				$string .= $chars[rand(0, strlen($chars)-1)];
-			}
-			//l'envoi de mail n'ayant pas été possible en travaillant en local, on affiche le mot de passe pour notre version test
-			//ceci n'est absolument pas sécurisé car n'importe qui peut obtenir le mdp pour un login donné
-			//ceci sera réctifié lorsque l'envoi de mail sera possible
-			echo $string;
-			echo "<br>";
-			return $string;
-		}
+				//On effectue la requête SQL pour vérifier si l'utilisateur est inscrit 
+				$resultat = $BDD->select("*","utilisateur","login = '" . $_login . "'");
+				$resultat = $resultat->fetch();
 
-		if(!empty($_POST)){
-			$_login = htmlspecialchars($_POST['login']);
+				//Si c'est vide cela veut dire que l'utilisateur n'existe pas
+				if(!empty($resultat)){
 
-		//On effectue la requête SQL pour vérifier si l'utilisateur est inscrit 
-			$resultat = $BDD->select("*","utilisateur","login = '" . $_login . "'");
-			$resultat = $resultat->fetch();
+					$pass=random_string(10);
 
-			if(!empty($resultat)){
+					//l'envoi de mail n'ayant pas été possible en travaillant en local, on affiche le mot de passe pour notre version test
+					//ceci n'est absolument pas sécurisé car n'importe qui peut obtenir le mdp pour un login donné
+					//ceci sera réctifié lorsque l'envoi de mail sera possible
+					echo $pass;
 
-				$pass=random_string(10);
-
-
-
-//envoie du mot de passe par mail
+					//envoie du mot de passe par mail
 
 /*
 
-$mail = $resultat[0]; // Déclaration de l'adresse de destination.
+					$mail = $resultat[0]; // Déclaration de l'adresse de destination.
 
-if (!preg_match("#^[a-z0-9._-]+@(hotmail|live|msn|gmail).[a-z]{2,4}$#", $mail)) // On filtre les serveurs qui rencontrent des bogues.
+					if (!preg_match("#^[a-z0-9._-]+@(hotmail|live|msn|gmail).[a-z]{2,4}$#", $mail)){ // On filtre les serveurs qui rencontrent des bogues.
 
-{
+    					$passage_ligne = "\r\n";
 
-    $passage_ligne = "\r\n";
+					}
+					else{
+						$passage_ligne = "\n";
 
-}
+					}	
 
-else
+					//=====Déclaration des messages au format texte et au format HTML.
 
-{
+						$message_txt = "Bonjour, voici ci-dessous votre nouveau mot de passe.\n Nous vous conseillons vivement de le changer dès votre prochaine connexion. \n".$pass;
 
-    $passage_ligne = "\n";
+						//$message_html = "<html><head></head><body><b>Bonjour</b>, voici ci-dessous votre nouveau mot de passe. <i>script PHP</i>.</body></html>";
 
-}
+					//==========
 
-//=====Déclaration des messages au format texte et au format HTML.
 
-$message_txt = "Bonjour, voici ci-dessous votre nouveau mot de passe.\n Nous vous conseillons vivement de le changer dès votre prochaine connexion. \n".$pass;
+ 					//=====Création de la boundary
 
-//$message_html = "<html><head></head><body><b>Bonjour</b>, voici ci-dessous votre nouveau mot de passe. <i>script PHP</i>.</body></html>";
+						$boundary = "-----=".md5(rand());
 
-//==========
+					//==========
 
- 
 
-//=====Création de la boundary
+ 					//=====Définition du sujet.
 
-$boundary = "-----=".md5(rand());
+						$sujet = "Nouveau mot de passe";
 
-//==========
+					//=========
 
- 
 
-//=====Définition du sujet.
+					//=====Création du header de l'e-mail.
 
-$sujet = "Nouveau mot de passe";
+						$header = "From: \"WeaponsB".$mail.$passage_ligne;
 
-//=========
+						$header.= "Reply-to: \"WeaponsB".$mail.$passage_ligne;
 
- 
+						$header.= "MIME-Version: 1.0".$passage_ligne;
 
-//=====Création du header de l'e-mail.
+						$header.= "Content-Type: multipart/alternative;".$passage_ligne." boundary=\"$boundary\"".$passage_ligne;
 
-$header = "From: \"WeaponsB".$mail.$passage_ligne;
+					//==========
 
-$header.= "Reply-to: \"WeaponsB".$mail.$passage_ligne;
 
-$header.= "MIME-Version: 1.0".$passage_ligne;
+					//=====Création du message.
 
-$header.= "Content-Type: multipart/alternative;".$passage_ligne." boundary=\"$boundary\"".$passage_ligne;
+						$message = $passage_ligne."--".$boundary.$passage_ligne;
 
-//==========
 
- 
+					//=====Ajout du message au format texte.
 
-//=====Création du message.
+						$message.= "Content-Type: text/plain; charset=\"ISO-8859-1\"".$passage_ligne;
 
-$message = $passage_ligne."--".$boundary.$passage_ligne;
+						$message.= "Content-Transfer-Encoding: 8bit".$passage_ligne;
 
-//=====Ajout du message au format texte.
+						$message.= $passage_ligne.$message_txt.$passage_ligne;
 
-$message.= "Content-Type: text/plain; charset=\"ISO-8859-1\"".$passage_ligne;
+					//==========
 
-$message.= "Content-Transfer-Encoding: 8bit".$passage_ligne;
+						$message.= $passage_ligne."--".$boundary.$passage_ligne;
 
-$message.= $passage_ligne.$message_txt.$passage_ligne;
 
-//==========
+					//=====Ajout du message au format HTML
 
-$message.= $passage_ligne."--".$boundary.$passage_ligne;
+						$message.= "Content-Type: text/html; charset=\"ISO-8859-1\"".$passage_ligne;
 
-//=====Ajout du message au format HTML
+						$message.= "Content-Transfer-Encoding: 8bit".$passage_ligne;
 
-$message.= "Content-Type: text/html; charset=\"ISO-8859-1\"".$passage_ligne;
+						//$message.= $passage_ligne.$message_html.$passage_ligne;
 
-$message.= "Content-Transfer-Encoding: 8bit".$passage_ligne;
+					//==========
 
-//$message.= $passage_ligne.$message_html.$passage_ligne;
+						$message.= $passage_ligne."--".$boundary."--".$passage_ligne;
 
-//==========
+						$message.= $passage_ligne."--".$boundary."--".$passage_ligne;
 
-$message.= $passage_ligne."--".$boundary."--".$passage_ligne;
-
-$message.= $passage_ligne."--".$boundary."--".$passage_ligne;
-
-//==========
+					//==========
 
  
+					//=====Envoi de l'e-mail.
 
-//=====Envoi de l'e-mail.
+						mail($mail,$sujet,$message,$header);
 
-mail($mail,$sujet,$message,$header);
-
-//==========
-
-
-
-
-
+					//==========
 
 */
 
-$newPass=$BDD->hash_password($pass);
-$BDD->modifierMdpUtilisateur($newPass,$_login);
-echo "Un mail a été envoyer à l'adresse correspondant au login : ".$_login;
-echo '<br>';
-echo "Cliquez <a href='index.php'> ici </a> pour retourner à la page d'accueil \n";
+					$newPass=$BDD->hash_password($pass);
+					$BDD->modifierMdpUtilisateur($newPass,$_login);
+					echo "Un mail a été envoyer à l'adresse correspondant au login : ".$_login;
+					echo '<br>';
+					echo "Cliquez <a href='index.php'> ici </a> pour retourner à la page d'accueil \n";
 
 
-}
+				}
+				else{
+					echo "Ce login n'existe pas, veuillez entré un login existant <br> ";
+				}
 
-else{
+			}
 
-	echo "Ce login n'existe pas, veuillez entré un login existant <br> ";
-}
+			//Formulaire à complété pour demander un nouveau login
+			$form_oubli_mdp=new form("oubli_mdp","oubli_mdp.php","post","");
+			$form_oubli_mdp->setinput("text","login","Login",1);
+			$form_oubli_mdp->setsubmit("valider_oubli_mdp","valider");
+			$form_oubli_mdp->setinput("reset","resset_oubli_mdp","",0);
+			$form_oubli_mdp->getform();
 
-}
-
-$form_oubli_mdp=new form("oubli_mdp","oubli_mdp.php","post","");
-$form_oubli_mdp->setinput("text","login","Login",1);
-
-
-$form_oubli_mdp->setsubmit("valider_oubli_mdp","valider");
-$form_oubli_mdp->setinput("reset","resset_oubli_mdp","",0);
-$form_oubli_mdp->getform();
-
-
-
-
-?>
-
-
-</div>
+		?>
+	</div>
 </body>
 </html>

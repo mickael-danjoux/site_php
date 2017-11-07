@@ -36,6 +36,13 @@
 				//lien panier
 				echo "<a id='lienPanier' href='panier.php'>Panier</a>";
 
+				//lien catalogue
+				echo "<a id='lienIndex' href='index.php'>Catalogue photo</a>";
+
+				//Formulaire de déconnexion
+				$form_deconnexion = new form("deconnexion","deconnexion.php","post","");
+				$form_deconnexion->setsubmit("validerdeconnexion","Deconnexion");
+				$form_deconnexion->getform();
 
 			}
 			else{
@@ -62,18 +69,25 @@
 				$resultatPhoto = $resultatPhoto->fetchAll();
 				echo "Vous possèdez : <br>";
 				foreach ($resultatPhoto as $key) {
-					echo "Image n° : ".$key[0]."<br>";
+					//echo "Image n° : ".$key[0]."<br>";
+					$resultat = $BDD->select("*","image"," id ='".$key[0]."'");
+					$resultat = $resultat->fetch();
 
-					//$resultat = $BDD->select("*","image","id='".$key[0]."'");
-					//$resultat = $resultat->fetch();
-					//foreach ($resultat as $key) {
-						//$image = new Image($key[1],$key[2],$key[3],$key[4],$key[5],$key[6],$key[7],$key[8],$key[9]);
-						//$image->afficheMiniature();
-					//}
-					
+					echo "<div class='lientelechargement'>";
+					echo "<div class='idtelechargement'>".$resultat[0]." : </div>";
+					echo "<div class='nomtelechargement'>".$resultat[1]."</div>";
+					$form_download = new form("download","download.php","post","");
+					$form_download->setHidden("lienImage",$resultat[6]);
+					$form_download->setsubmit("telechargerfichier","Télécharger");
+					$form_download->getform();
+
+					echo "</div>";
 				}
 
 			?>
+		</div>
+		<div id="piedpage">
+
 		</div>
 </body>
 </html>

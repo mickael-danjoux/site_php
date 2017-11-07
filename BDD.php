@@ -67,9 +67,9 @@ class BDD{
 
 	public function insertPhoto($image){
 
-		$requete = "INSERT INTO image (id,nom,lieu,date,evenement,mot_cle,url,url_min,url_copyright,lien_page) values (default,?,?,?,?,?,?,?,?,?)";
+		$requete = "INSERT INTO image (id,nom,lieu,date,evenement,mot_cle,url,url_min,url_copyright,lien_page,prix) values (default,?,?,?,?,?,?,?,?,?,?)";
 		$stmt = $this->pdo->prepare($requete);
-		$stmt->execute(array($image->getNom(),$image->getLieu(),$image->getDate(),$image->getEvenement(),$image->getMot_cle(),$image->getUrl(),$image->getUrlM(),$image->getUrlCopy(),$image->getLienPage())); 
+		$stmt->execute(array($image->getNom(),$image->getLieu(),$image->getDate(),$image->getEvenement(),$image->getMot_cle(),$image->getUrl(),$image->getUrlM(),$image->getUrlCopy(),$image->getLienPage(),$image->getPrix())); 
 	}
 
 	public function modifierPhoto($_attribut,$_nouvelleValeur, $_condition){
@@ -115,6 +115,11 @@ class BDD{
 		$requete = "INSERT INTO achat(login,id_image) values(?,?)";
 		$stmt = $this->pdo->prepare($requete);
 		$stmt->execute(array($_login,$_image));
+	}
+
+	public function deleteAchat($_id){
+		$requete = "DELETE FROM achat WHERE id_image ='".$_id."'";
+		$stmt = $this->pdo->query($requete);
 	}
 
 }

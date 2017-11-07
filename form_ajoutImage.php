@@ -5,7 +5,7 @@
 	$extensionsValides = array('jpg','jpeg','gif','png');
 
 	//On vérifie que les champs obligatoires sont bien remplis
-	if($_FILES['lienImage'] == UPLOAD_ERR_NO_FILE || !isset($_POST['nomImage']) || !isset($_POST['lieuImage']) || !isset($_POST['jourImage']) || !isset($_POST['moisImage']) || !isset($_POST['anneeImage']) || !isset($_POST['evenementImage'])){
+	if($_FILES['lienImage'] == UPLOAD_ERR_NO_FILE || !isset($_POST['nomImage']) || !isset($_POST['lieuImage']) || !isset($_POST['jourImage']) || !isset($_POST['moisImage']) || !isset($_POST['anneeImage']) || !isset($_POST['evenementImage']) || !isset($_POST['prixImage'])){
 		header("Location: administrateurAjout.php?erreur=Il manque des informations dans l'ajout");
 	}
 	else{
@@ -54,6 +54,14 @@
 						}
 					}
 
+					//On vérifie si le prix est bien un float
+					if(!is_numeric($_POST['prixImage'])){
+						header("Location: administrateurAjout.php?erreur=Le prix n'est pas correct");
+					}
+					else{
+						$prixI = $_POST['prixImage'];
+					}
+
 					//on crée un objet image
 					//variable pour les url
 					$url = "images/reelle/".$nomI.'.'.$extensionUpload;
@@ -61,7 +69,7 @@
 					$urlc = "images/copyright/".$nomI.'.'.$extensionUpload;
 					$lienp = "pagesImages/".$nomI.'.php';
 
-					$image = new Image($nomI,$lieuI,$dateI,$evenementI,$mot_cleI,$url,$urlm,$urlc,$lienp);
+					$image = new Image($nomI,$lieuI,$dateI,$evenementI,$mot_cleI,$url,$urlm,$urlc,$lienp,$prixI);
 
 
 					//On ajoute la photo dans la base

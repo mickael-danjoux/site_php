@@ -8,7 +8,7 @@
 	//On va chercher la photo dans la bd
 	$resultat = $BDD->select("*","image","id = '".$id."'");
 	$resultat = $resultat->fetch();
-	$image = new Image($resultat[1],$resultat[2],$resultat[3],$resultat[4],$resultat[5],$resultat[6],$resultat[7],$resultat[8],$resultat[9]);
+	$image = new Image($resultat[1],$resultat[2],$resultat[3],$resultat[4],$resultat[5],$resultat[6],$resultat[7],$resultat[8],$resultat[9],$resultat[10]);
 
 	
 ?>
@@ -26,11 +26,18 @@
 				echo $_GET['message'];
 			}
 
-			if($_SESSION['admin'] != 1){
-			//Lien accueil
-				echo "<a id='accueil' href='../index.php'>Accueil</a>";
+			if(isset($_SESSION['admin']) && $_SESSION['admin'] == 1){
+				//lien catalogue admin
+				echo "<a id='lienPanier' href='../administrateurSuppr.php'>Catalogue photo</a>";
 			}
+			else{
+				//Lien accueil
+				echo "<a id='accueil' href='../index.php'>Accueil</a>";
 
+				//lien panier
+				echo "<a id='lienPanier' href='../panier.php'>Panier</a>";
+			}
+			
 
 			//On regarde si on est déjà connecté ou non et on affiche le formulaire correspondant
 			if(isset($_SESSION['id'],$_SESSION['mdp'],$_SESSION['mail'],$_SESSION['admin'])){
@@ -39,8 +46,7 @@
 				$form_deconnexion->setsubmit("validerdeconnexion","Deconnexion");
 				$form_deconnexion->getform();
 
-				//lien changer mot de passe
-				echo "<a id='lienPanier' href='../panier.php'>Panier</a>";
+				
 			}
 			else{
 				//Formulaire de connexion
@@ -57,30 +63,14 @@
 	</div>
 	<div id="contenu">
 		<?php
-			echo "<div class='imagepage'>";
-				//On regarde si l'utilisateur est administrateur ou pas, si non, on affiche les photos avec un copyright
 				if(isset($_SESSION['admin']) && $_SESSION['admin'] == 1){
-					echo "<img src='../".$image->getUrl()."'>";
+					$admin = 1;
 				}
 				else{
-					echo "<img src='../".$image->getUrlCopy()."'>";
+					$admin = 0;
 				}
-			echo "</div>
-				<div class='nompage'>";
-					echo $image->getNom();
-			echo "</div>
-			<div class='lieupage'>";
-					echo $image->getLieu();
-			echo "</div>
-			<div class='datepage'>";
-					echo $image->getDate();
-			echo "</div>
-			<div class='evenementpage'>";
-					echo $image->getEvenement();
-			echo "</div>
-			<div class='motclepage'>";
-					echo $image->getMot_cle();
-			echo "</div>";
+			
+			echo $image->afficheReelle($admin);
 		
 			if(isset($_SESSION['id'],$_SESSION['mdp'],$_SESSION['mail'],$_SESSION['admin']) && $_SESSION['admin'] == 1){
 				$form_suppr = new form("suppression","form_suppression.php","post","");

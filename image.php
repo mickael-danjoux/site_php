@@ -12,8 +12,9 @@
 		private $url_m;
 		private $url_copyright;
 		private $lien_page;
+		private $prix;
 
-		public function __construct($_nom,$_lieu,$_date,$_evenement,$_mot_cle,$_url,$_url_m,$_url_copy,$_lien_page){
+		public function __construct($_nom,$_lieu,$_date,$_evenement,$_mot_cle,$_url,$_url_m,$_url_copy,$_lien_page,$_prix){
 			$this->setNom($_nom);
 			$this->setLieu($_lieu);
 			$this->setDate($_date);
@@ -23,7 +24,7 @@
 			$this->setUrlm($_url_m);
 			$this->setUrlCopy($_url_copy);
 			$this->setLienPage($_lien_page);
-
+			$this->setPrix($_prix);
 		}
 
 
@@ -108,6 +109,14 @@
 			$this->id = $_id;
 		}
 
+		public function getPrix(){
+			return $this->prix;
+		}
+
+		public function setPrix($_prix){
+			$this->prix = $_prix;
+		}
+
 		public function afficheMiniature(){
 			$min = "<div class='image'>";
 			$min .= "<div class='photo'>";
@@ -128,9 +137,44 @@
 			$min .= "<div class='mot_cle'>";
 				$min .= $this->mot_cle;
 			$min .= "</div>";
+			$min .= "<div class='prix'>";
+				$min .= $this->prix." €";
+			$min .= "</div>";
 			$min .= "</div>";
 
 			return $min;
+		}
+
+		public function afficheReelle($_admin){
+			$reelle = "<div class='imagepage'>";
+				//On regarde si l'utilisateur est administrateur ou pas, si non, on affiche les photos avec un copyright
+				if($_admin){
+					$reelle .= "<img src='../".$this->getUrl()."'>";
+				}
+				else{
+					$reelle .= "<img src='../".$this->getUrlCopy()."'>";
+				}
+			$reelle .= "</div>
+				<div class='nompage'>";
+					$reelle .= $this->getNom();
+			$reelle .= "</div>
+			<div class='lieupage'>";
+					$reelle .= $this->getLieu();
+			$reelle .= "</div>
+			<div class='datepage'>";
+					$reelle .= $this->getDate();
+			$reelle .= "</div>
+			<div class='evenementpage'>";
+					$reelle .= $this->getEvenement();
+			$reelle .= "</div>
+			<div class='motclepage'>";
+					$reelle .= $this->getMot_cle();
+			$reelle .= "</div>
+		 	<div class='prixpage'>";
+		 		$reelle .= $this->getPrix()." €";
+		 	$reelle .= "</div>";
+
+		 	return $reelle;
 		}
 
 		public function creationPage(){
@@ -150,9 +194,9 @@
 				echo $e;
 			}
 
-			//On lit le fichier exemple
+			//On lit le fichier exemple --- 90 le nombre de ligne du fichier exemple 
 			$contenu = fgets($fichierexemple);
-			for ($i=1; $i < 100; $i++) { 
+			for ($i=1; $i < 90; $i++) { 
 				$contenu .= fgets($fichierexemple);
 			}
 
