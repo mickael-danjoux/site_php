@@ -28,31 +28,25 @@ if(isset($_SESSION['admin'])){
 					echo $_GET['message'];
 				}
 
-				//On ajoute une barre de recherche pour chercher les mots clé
-				echo "<div id='form_recherche'>";
-				$form_recherche = new form("recherche","form_recherche.php","post","");
-				$form_recherche->setinput("text","motcle","Recherche par mot-clé",0);
-				$form_recherche->setsubmit("validerrecherche","Go");
-				$form_recherche->getform();
-				echo "</div>";
-
 				//On regarde si on est déjà connecté ou non et on affiche le formulaire correspondant
 				if(isset($_SESSION['id'],$_SESSION['mdp'],$_SESSION['mail'],$_SESSION['admin'])){
-					//Formulaire de déconnexion
-					$form_deconnexion = new form("deconnexion","deconnexion.php","post","");
-					$form_deconnexion->setsubmit("validerdeconnexion","Deconnexion");
-					$form_deconnexion->getform();
-
 					//lien changer mot de passe
 					echo "<a id='changer_Mdp' href='changer_mdp.php'>Changer de mot de passe</a>";
 
-					//lien changer mot de passe
+					//lien pour le panier
 					echo "<a id='lienPanier' href='panier.php'>Panier</a>";
 
 					if(isset($_SESSION['admin']) && $_SESSION['admin'] == 0){
-						//lien changer mot de passe
+						//lien page utilisateur
 						echo "<a id='pageUtilisateur' href='pageUtilisateur.php'>Mon espace</a>";
 					}
+
+					//Formulaire de déconnexion
+					$form_deconnexion = new form("deconnexion","deconnexion.php","post","");
+					$form_deconnexion->setsubmit("validerdeconnexion","Déconnexion");
+					$form_deconnexion->getform();
+
+					
 				}
 				else{
 					//Formulaire de connexion
@@ -68,6 +62,14 @@ if(isset($_SESSION['admin'])){
 					//lien mot de passe oublié
 					echo "<a id='oubli_Mdp' href='oubli_Mdp.php'>Mot de passe oublié</a>";
 				}
+
+				//On ajoute une barre de recherche pour chercher les mots clé
+				echo "<div id='form_recherche'>";
+				$form_recherche = new form("recherche","form_recherche.php","post","");
+				$form_recherche->setinput("text","motcle","Recherche par mot-clé",0);
+				$form_recherche->setsubmit("validerrecherche","Go");
+				$form_recherche->getform();
+				echo "</div>";
 			?>
 		</div>
 		<div id="contenu">

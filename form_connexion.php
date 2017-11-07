@@ -39,7 +39,7 @@ else{
 
 				//Vérification si l'utilisateur est administrateur ou pas 
 			if($_SESSION['admin']){
-				header("Location: administrateurAjout.php");
+				header("Location: administrateurSuppr.php");
 			}
 			else{
 				header("Location: index.php");

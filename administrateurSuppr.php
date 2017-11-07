@@ -22,10 +22,10 @@
 					echo $_GET['message'];
 				}
 			?>
-				<ul id="menu_admin">
-					<li><a href="administrateurAjout.php">Ajout photo</a></li>
-					<li><a href="administrateurSuppr.php">Catalogue photo</a></li>
-				</ul>
+				
+				<a id="ajoutPhoto" href="administrateurAjout.php">Ajout photo</a></li>
+				<a class="cataloguePhoto" href="administrateurSuppr.php">Catalogue photo</a></li>
+				
 
 			<?php	
 				//Formulaire de déconnexion

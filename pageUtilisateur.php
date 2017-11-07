@@ -37,7 +37,7 @@
 				echo "<a id='lienPanier' href='panier.php'>Panier</a>";
 
 				//lien catalogue
-				echo "<a id='lienIndex' href='index.php'>Catalogue photo</a>";
+				echo "<a id='catalogue' href='index.php'>Catalogue photo</a>";
 
 				//Formulaire de déconnexion
 				$form_deconnexion = new form("deconnexion","deconnexion.php","post","");

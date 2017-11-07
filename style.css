@@ -29,7 +29,7 @@ input[name='id']{
 input[name='mdp']{
 	padding: 5px;
 	margin-left: 88%;
-	margin-top: -1.60%;
+	margin-top: 0.2%;
 	margin-right: 2.45%;
 	width: 169px;
 	float: right;
@@ -55,7 +55,7 @@ input[name='validerdeconnexion']{
 div#form_recherche{
 	width: 250px;
 	float: left;
-	margin-left: 40%;
+	margin-left: 25%;
 	margin-top: 1.5%;
 }
 
@@ -76,8 +76,23 @@ a#inscription,a#oubli_Mdp{
 	font-family: Calibri;
 	color: black;
 }
+a#inscription:hover,a#oubli_Mdp:hover{
+	border-color: #696969;
+}
 
- a#inscription:hover,a#oubli_Mdp:hover{
+/*Changer mot de passe du bandeau*/
+a#changer_Mdp, a#lienPanier, a#pageUtilisateur,a#catalogue{
+	float: left;
+	margin-left: 1%;
+	margin-top: 2%;
+	background-color: #E8E8E8;
+	border: 1px solid #9E9E9E;
+	padding: 3px;
+	text-decoration: none;
+	font-family: Calibri;
+	color: black;
+}
+a#changer_Mdp:hover, a#lienPanier:hover, a#pageUtilisateur:hover, a#catalogue:hover{
 	border-color: #696969;
 }
 
@@ -94,16 +109,6 @@ div.image:hover{
 	border-color: #696969;
 }
 
-ul#menu_admin li { 
-	display : inline;
-	padding : 0 0.5em; 
-}
 
-ul#menu_admin {
-	list-style-type : none; 
-	float: left;
-	margin-top: 2%;
-	margin-left: 5%;
-}
 
 
