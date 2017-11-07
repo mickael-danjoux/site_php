@@ -70,38 +70,23 @@ class BDD{
 		$requete = "INSERT INTO image (id,nom,lieu,date,evenement,mot_cle,url,url_min,url_copyright,lien_page) values (default,?,?,?,?,?,?,?,?,?)";
 		$stmt = $this->pdo->prepare($requete);
 		$stmt->execute(array($image->getNom(),$image->getLieu(),$image->getDate(),$image->getEvenement(),$image->getMot_cle(),$image->getUrl(),$image->getUrlM(),$image->getUrlCopy(),$image->getLienPage())); 
-
-			//$requete = "INSERT INTO image values(default,'".$image->getNom()."','".$image->getLieu()."','".$image->getDate()."','".$image->getEvenement()."','".$image->getMot_cle()."','".$image->getUrl()."','".$image->getUrlM()."','".$image->getUrlCopy()."')";
-			//$stmt = $this->pdo->query($requete);
-
-		
 	}
 
 	public function modifierPhoto($_attribut,$_nouvelleValeur, $_condition){
 		try{
-				//$requete = "UPDATE image SET :attribut = :nouvelleValeur WHERE :condition";
-				//$stmt = $this->pdo->prepare("UPDATE image SET :attribut = :nouvelleValeur WHERE id = :condition");
-				//$stmt->bindParam(':attribut',$_attribut,PDO::PARAM_STR);
-				//$stmt->bindParam(':nouvelleValeur',$_nouvelleValeur,PDO::PARAM_STR);
-				//$stmt->bindParam(':condition',$_condition,PDO::PARAM_INT);
-				//$stmt->execute();
-
 			$requete = "UPDATE image SET ".$_attribut." = ".$_nouvelleValeur." WHERE id = '".$_condition."'";
 			$stmt = $this->pdo->query($requete);
-
 		}
 		catch(PDOException $e){
 			echo "Echec lors de l'ajout : ".$e->getMessage();
 		}
-		
 	}
 
-		// fonction pour modifier le MDP en cas d'oublie de mot de passe
 
+	// fonction pour modifier le MDP en cas d'oublie de mot de passe
 	public function modifierMdpUtilisateur($_string,$_login){
 		try{
 			
-
 			$requete='UPDATE `utilisateur` SET `password`="'.$_string.'"WHERE login="'.$_login.'"';
 			
 			$stmt = $this->pdo->query($requete);

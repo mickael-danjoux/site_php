@@ -63,7 +63,7 @@
 				$this->form .= " value='".$_value."'";
 			}
 
-			$this->form .= ">";
+			$this->form .= "/>";
 
 		}
 

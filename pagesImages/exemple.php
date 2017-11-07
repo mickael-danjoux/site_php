@@ -26,8 +26,10 @@
 				echo $_GET['message'];
 			}
 
+			if($_SESSION['admin'] != 1){
 			//Lien accueil
 				echo "<a id='accueil' href='../index.php'>Accueil</a>";
+			}
 
 
 			//On regarde si on est déjà connecté ou non et on affiche le formulaire correspondant

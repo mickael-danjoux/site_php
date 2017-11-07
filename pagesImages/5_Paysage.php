@@ -3,7 +3,7 @@
 	require_once('../form.php');
 	require_once('../connexionbd.php');
 	
-	$id = 1;                                                                                                            
+	$id = 5;                                                                                                           
 
 	//On va chercher la photo dans la bd
 	$resultat = $BDD->select("*","image","id = '".$id."'");

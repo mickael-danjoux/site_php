@@ -50,6 +50,11 @@ if(isset($_SESSION['admin'])){
 
 				//lien changer mot de passe
 				echo "<a id='lienPanier' href='panier.php'>Panier</a>";
+
+				if(isset($_SESSION['admin']) && $_SESSION['admin'] == 0){
+					//lien changer mot de passe
+					echo "<a id='pageUtilisateur' href='pageUtilisateur.php'>Mon espace</a>";
+				}
 			}
 			else{
 				//Formulaire de connexion

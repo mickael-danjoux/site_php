@@ -3,7 +3,7 @@
 	require_once('../form.php');
 	require_once('../connexionbd.php');
 	
-	$id = 2;                                                                                                             
+	$id =  2;                                                                                                            
 
 	//On va chercher la photo dans la bd
 	$resultat = $BDD->select("*","image","id = '".$id."'");
@@ -26,8 +26,10 @@
 				echo $_GET['message'];
 			}
 
+			if($_SESSION['admin'] != 1){
 			//Lien accueil
 				echo "<a id='accueil' href='../index.php'>Accueil</a>";
+			}
 
 
 			//On regarde si on est déjà connecté ou non et on affiche le formulaire correspondant
