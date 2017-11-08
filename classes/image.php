@@ -1,7 +1,9 @@
 <?php
+	//On inclut les fichiers utilisés
 	require_once("/connexionbd.php");
 
 	class Image{
+		//Attribut de la classe Image
 		private $id;
 		private $nom;
 		private $lieu;
@@ -14,6 +16,20 @@
 		private $lien_page;
 		private $prix;
 
+		
+		/**
+		 * Constructeur de la classe Image
+		 *	@param string $_nom le nom de l'image (dans la base de données)
+		 *  @param string $_lieu le lieu de l'image (dans la base de données)
+		 *  @param string $_date la date de l'image (dans la base de données)
+		 *  @param string $_evenement l'évènement de l'image (dans la base de données)
+		 *	@param string $_mot_cle les mots clé de l'image (dans la base de données)
+		 *	@param string $_url l'url de l'image réelle (dans la base de données)
+		 *	@param string $_url_m l'url de l'image miniature (dans la base de données)
+		 *	@param string $_url_copy l'url de l'image en copyright (dans la base de données)
+		 *	@param string $_lien_page l'url de la page de l'image (dans la base de données)
+		 *	@param float $_prix le prix de l'image (dans la base de données)
+		*/
 		public function __construct($_nom,$_lieu,$_date,$_evenement,$_mot_cle,$_url,$_url_m,$_url_copy,$_lien_page,$_prix){
 			$this->setNom($_nom);
 			$this->setLieu($_lieu);
@@ -28,95 +44,188 @@
 		}
 
 
+		/**
+		 * Setter de l'attribut $nom
+		 *	@param string $_nom le nom de l'image (dans la base de données)
+		*/
 		public function setNom($_nom){
 			$this->nom = $_nom;
 		}
 
+		/**
+		 * Getter de l'attribut $nom
+		 *	@return string $this->nom le nom de l'Image
+		*/
 		public function getNom(){
 			return $this->nom;
 		}
 
+		/**
+		 * Setter de l'attribut $lieu
+		 *	@param string $_lieu le lieu de l'image (dans la base de données)
+		*/
 		public function setLieu($_lieu){
 			$this->lieu = $_lieu;
 		}
 
+		/**
+		 * Getter de l'attribut $lieu
+		 *	@return string $this->lieu le lieu de l'Image
+		*/
 		public function getLieu(){
 			return $this->lieu;
 		}
 
+		/**
+		 * Setter de l'attribut $date
+		 *	@param string $_date la date de l'image (dans la base de données)
+		*/
 		public function setDate($_date){
 			$this->date = $_date;
 		}
 
+		/**
+		 * Getter de l'attribut $date
+		 *	@return string $this->date la date de l'Image
+		*/
 		public function getDate(){
 			return $this->date;
 		}
 
+		/**
+		 * Setter de l'attribut $evenement
+		 *	@param string $_evenement l'évènement de l'image (dans la base de données)
+		*/
 		public function setEvenement($_evenement){
 			$this->evenement = $_evenement;
 		}
 
+		/**
+		 * Getter de l'attribut $evenement
+		 *	@return string $this->evenement l'évènement de l'Image
+		*/
 		public function getEvenement(){
 			return $this->evenement;
 		}
 
+		/**
+		 * Setter de l'attribut $mot_cle
+		 *	@param string $_mot_cle les mots clé de l'image (dans la base de données)
+		*/
 		public function setMot_cle($_mot_cle){
 			$this->mot_cle = $_mot_cle;
 		}
 
+		/**
+		 * Getter de l'attribut $mot_cle
+		 *	@return string $this->mot_cle les mots clé de l'Image
+		*/
 		public function getMot_cle(){
 			return $this->mot_cle;
 		}
 
+		/**
+		 * Setter de l'attribut $url
+		 *	@param string $_url l'url de l'image réelle (dans la base de données)
+		*/
 		public function setUrl($_url){
 			$this->url = $_url;
 		}
 
+		/**
+		 * Getter de l'attribut $url
+		 *	@return string $this->url l'url de l'Image réelle
+		*/
 		public function getUrl(){
 			return $this->url;
 		}
 
+		/**
+		 * Setter de l'attribut $url_m
+		 *	@param string $_url_m l'url de l'image miniature (dans la base de données)
+		*/
 		public function setUrlM($_url_m){
 			$this->url_m = $_url_m;
 		}
 
+		/**
+		 * Getter de l'attribut $url_m
+		 *	@return string $this->url_m l'url de l'Image miniature
+		*/
 		public function getUrlM(){
 			return $this->url_m;
 		}
 
+		/**
+		 * Setter de l'attribut $url_copy
+		 *	@param string $_url_copy l'url de l'image en copyright (dans la base de données)
+		*/
 		public function setUrlCopy($_url_copy){
 			$this->url_copyright = $_url_copy;
 		}
 
+		/**
+		 * Getter de l'attribut $url_copy
+		 *	@return string $this->url_copy l'url de l'Image en copyright
+		*/
 		public function getUrlCopy(){
 			return $this->url_copyright;
 		}
 
+		/**
+		 * Setter de l'attribut $lien_page
+		 *	@param string $_lien_page l'url de la page de l'image (dans la base de données)
+		*/
 		public function setLienPage($_lien_page){
 			$this->lien_page = $_lien_page;
 		}
 
+		/**
+		 * Getter de l'attribut $lien_page
+		 *	@return string $this->lien_page l'url de la page de l'Image
+		*/
 		public function getLienPage(){
 			return $this->lien_page;
 		}
 
+		/**
+		 * Getter de l'id d'une image (dans la base de données)
+		 *	@return array(int) $resultat[0] l'id de cette Image 
+		*/
 		public function getId(){
 			$resultat = $BDD->select("id","image","url ='".$this->url."'");
 			return $resultat;
 		}
 
+		/**
+		 * Setter de l'attribut $id
+		 *	@param int $_id l'id de l'image (dans la base de données)
+		*/
 		public function setId($_id){
 			$this->id = $_id;
 		}
 
+		
+		/**
+		 * Getter de l'attribut $prix
+		 *	@return float $this->prix le prix de l'Image
+		*/
 		public function getPrix(){
 			return $this->prix;
 		}
 
+		/**
+		 * Setter de l'attribut $prix
+		 *	@param float $_prix le prix de l'image (dans la base de données)
+		*/
 		public function setPrix($_prix){
 			$this->prix = $_prix;
 		}
 
+		/**
+		 * 	Permet d'afficher la miniature de l'image avec son nom, son lieu, sa date, son evenement, ses mots_clé et son prix
+		 *	@return string $min le code HTML 
+		*/
 		public function afficheMiniature(){
 			$min = "<div class='image'>";
 			$min .= "<div class='photo'>";
@@ -145,6 +254,10 @@
 			return $min;
 		}
 
+		/**
+		 * 	Permet d'afficher l'image réelle de l'image avec son nom, son lieu, sa date, son evenement, ses mots_clé et son prix
+		 *	@return string $reelle le code HTML 
+		*/
 		public function afficheReelle($_admin){
 			$reelle = "<div class='imagepage'>";
 				//On regarde si l'utilisateur est administrateur ou pas, si non, on affiche les photos avec un copyright
@@ -177,6 +290,10 @@
 		 	return $reelle;
 		}
 
+		
+		/**
+		 * 	Permet de créer la page PHP de l'image et de l'enregistrer dans le dossier 'pagesImages'
+		*/
 		public function creationPage(){
 			//On créer le fichier
 			try {
@@ -194,9 +311,9 @@
 				echo $e;
 			}
 
-			//On lit le fichier exemple --- 90 le nombre de ligne du fichier exemple 
+			//On lit le fichier exemple --- 109 le nombre de ligne du fichier exemple 
 			$contenu = fgets($fichierexemple);
-			for ($i=1; $i < 90; $i++) { 
+			for ($i=1; $i < 109; $i++) { 
 				$contenu .= fgets($fichierexemple);
 			}
 
@@ -215,8 +332,8 @@
 				echo $e;
 			}
 
-			//On se déplace de 6 lignes pour aller à celle de 'id ='
-			for ($i=0; $i < 5; $i++) { 
+			//On se déplace de 10 lignes pour aller à celle de 'id ='
+			for ($i=0; $i < 9; $i++) { 
 				$temp = fgets($fichier);
 			}
 

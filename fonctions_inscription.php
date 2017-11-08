@@ -1,8 +1,8 @@
 <?php
-	/*
-	*test si l'adresse mail est une adresse valide grace a la fonction filter_var.
-	*entré->une chaine de charactère.
-	*retourne 1 si l'adresse à un format convenable : "XXXXXX@XXXXX.XXX"
+	/**
+	 * Permet de tester si l'adresse mail est une adresse valide ou pas
+	 * @param string $mail le mail à vérifier
+	 * @return boolean retourne 1 si l'adresse est dans un format valide
 	*/
 	function testMail ($mail){
 
@@ -16,13 +16,11 @@
 		return 1;
 	}
 
-	/*
-	*fonction d'affiche du message d'erreur en cas de mauvaise adresse mail
-	*entré->chaine de charactère
-	*retourne 1 si l'adresse est correct
-	*retourne 0 sinon et affiche un message d'erreur
+	/**
+	 *  Permet d'afficher un message d'erreur en cas de mauvaise adresse mail
+	 *	@param string $mail le mail à vérifier
+	 *	@return boolean retourne 1 si l'adresse est valide, affiche une erreur sinon
 	*/
-
 	function erreurMail($mail){
 		if(testMail($mail)==1){
 			return 1;
@@ -33,13 +31,12 @@
 		return 0;
 	}
 
-	/*
-	*fonction qui test les champs de POST
-	*entré->3 chaines de charactère correspondant au login, au mot de passe et le mot de passe confirmé
-	*on ajoute une variable $completed qui servira de valeur de retour
-	*on verifie que tous les champs soit remplis et que les 2 mdp soient identiques
-	* on affiche le(s) message(s) correspondant en cas d'eereur et la variable $completed devient false
-	*retourne 1 si les valeurs sont correct, 0 sinon 
+	/**
+	 *	Permet de vérifier si les champs (login, mot de passe et confirmer mot de passe) du formulaire sont remplis
+	 *	@param string $id le login de l'utilisateur qui change son mot de passe
+	 *	@param string $mdp le mot de passe de l'utilisateur
+	 *	@param string $confirm_password la vérification du mot de passe de l'utilisateur
+	 *	@return booloean retourne 1 si les valeurs sont correct, 0 sinon 
 	*/
 	function testValue($id,$mdp,$confirm_password){
 

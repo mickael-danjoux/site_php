@@ -1,9 +1,13 @@
 <?php
+	//On démarre la session
 	session_start();
+
+	//On inclut les fichiers utilisés
 	require_once("connexionbd.php");
 	require_once("classes/form.php");
 	require_once("fonctions_oublimdp.php");
 
+	//On crée la variable de session 'form'
 	$_SESSION['form'] = $_POST;
 ?>
 <!DOCTYPE html>
@@ -30,7 +34,10 @@
 		<p>Entrez votre login, nous vous enverrons un nouveau mot de passe à votre adresse mail.</p>
 
 		<?php
+			//On regarde si la personne a posté ou pas le formulaire
+			//Si oui
 			if(!empty($_POST)){
+				//On sécurise le login posté
 				$_login = htmlspecialchars($_POST['login']);
 
 				//On effectue la requête SQL pour vérifier si l'utilisateur est inscrit 
@@ -40,6 +47,7 @@
 				//Si c'est vide cela veut dire que l'utilisateur n'existe pas
 				if(!empty($resultat)){
 
+					//On crée un nouveau mot de passe aléatoire
 					$pass=random_string(10);
 
 					//l'envoi de mail n'ayant pas été possible en travaillant en local, on affiche le mot de passe pour notre version test
@@ -142,7 +150,9 @@
 
 */
 
+					//On hash le mot de passe pour le mettre dans la base de données
 					$newPass=$BDD->hash_password($pass);
+					//On modifie le mot de passe de la base de données avec le nouveau mot de passe
 					$BDD->modifierMdpUtilisateur($newPass,$_login);
 					echo "Un mail a été envoyer à l'adresse correspondant au login : ".$_login;
 					echo '<br>';
@@ -156,7 +166,7 @@
 
 			}
 
-			//Formulaire à complété pour demander un nouveau login
+			//Formulaire à complété pour demander un nouveau mot de passe
 			$form_oubli_mdp=new form("oubli_mdp","oubli_mdp.php","post","");
 			$form_oubli_mdp->setinput("text","login","Login",1);
 			$form_oubli_mdp->setsubmit("valider_oubli_mdp","valider");

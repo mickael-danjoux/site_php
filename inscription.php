@@ -1,12 +1,14 @@
 <?php
-require_once("connexionbd.php");
-require_once("classes/form.php");
-require_once("fonctions_inscription.php");
+	//On démarre la session 
+	session_start();
 
-session_start();
-$_SESSION['form'] = $_POST;
+	//On inclut les fichiers utilisés
+	require_once("connexionbd.php");
+	require_once("classes/form.php");
+	require_once("fonctions_inscription.php");
 
-
+	//On crée la variable de session 'form'
+	$_SESSION['form'] = $_POST;
 
 ?>
 <!DOCTYPE html>
@@ -23,7 +25,7 @@ $_SESSION['form'] = $_POST;
 				echo $_GET['message'];
 			}
 
-			//On ajoute un lien sur la page d'accuei l
+			//On ajoute un lien sur la page d'accueil
 			echo "<a id='accueil' href='index.php'>Accueil</a>";
 				
 		?>
@@ -60,6 +62,7 @@ $_SESSION['form'] = $_POST;
 					// on créer et enregistre le nouvel utilisateur
 					if (($no_erreur_mail==1)&&($test==1)) {
 
+						//On hash le mot de passe
 						$hash=$BDD->hash_password($_password);
 						// on créer un utilisateur
 						$utilisateur=new Utilisateur ($_mail,$_login,$hash,0);
@@ -74,8 +77,10 @@ $_SESSION['form'] = $_POST;
 					echo "Ce login existe déjà <br>";
 				}
 			}
-		
+			
+			//On regarde si on a déjà poster le formulaire
 			if(isset($_POST['mail'],$_POST['login'])){
+				//Si oui et qu'il y a des fautes dedans cela affiche le mail et le login écrit avant de poster
 				$form_inscription=new form("Inscription","inscription.php","post","");
 				$form_inscription->setinputValue("text","mail","Mail",1,$_POST['mail']);
 				$form_inscription->setinputValue("text","login","Login",1,$_POST['login']);
@@ -86,6 +91,7 @@ $_SESSION['form'] = $_POST;
 				$form_inscription->getform();
 			}
 			else{
+				//Si non, on affiche le formulaire d'inscription
 				$form_inscription=new form("Inscription","inscription.php","post","");
 				$form_inscription->setinputValue("text","mail","Mail",1,"");
 				$form_inscription->setinputValue("text","login","Login",1,"");
