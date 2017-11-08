@@ -42,7 +42,7 @@
 			//On regarde si on est déjà connecté ou non et on affiche le formulaire correspondant
 			if(isset($_SESSION['id'],$_SESSION['mdp'],$_SESSION['mail'],$_SESSION['admin'])){
 				//Formulaire de déconnexion
-				$form_deconnexion = new form("deconnexion","deconnexion.php","post","");
+				$form_deconnexion = new form("deconnexion","../deconnexion.php","post","");
 				$form_deconnexion->setsubmit("validerdeconnexion","Deconnexion");
 				$form_deconnexion->getform();
 

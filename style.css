@@ -4,6 +4,7 @@ div#bandeau{
 	background-color: lightblue;
 	padding: 5px 10px 5px;
 	border-bottom: solid blue 5px;
+	display: inline-table;
 }
 
 div#contenu{
@@ -57,6 +58,7 @@ div#form_recherche{
 	float: left;
 	margin-left: 25%;
 	margin-top: 1.5%;
+	position: relative;
 }
 
 /*Go des mots clé du bandeau*/
