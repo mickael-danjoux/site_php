@@ -1,6 +1,6 @@
 <?php
 	session_start();
-	require_once('../form.php');
+	require_once('../classes/form.php');
 	require_once('../connexionbd.php');
 	
 	$id = 1;                                                                                                             
@@ -15,7 +15,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Site</title>
+	<title>Galerie-Card || Image</title>
 	<link rel="stylesheet" type="text/css" href="../style.css">
 </head>
 <body>

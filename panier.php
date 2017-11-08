@@ -1,7 +1,7 @@
 <?php
 	session_start();
-	require_once "BDD.php";
-	require_once "form.php";
+	require_once("connexionbd.php");
+	require_once("classes/form.php");
 
 	//On regarde si on est connecté
 	if (!isset($_SESSION['mail'],$_SESSION['id'],$_SESSION['mdp'],$_SESSION['admin'])){
@@ -54,6 +54,10 @@
 			if(isset($_SESSION['panier'])){
 				$form_validerpanier = new form("validerpanier","form_validerpanier.php","post","");
 				$form_validerpanier->setsubmit("validationpanier","Acheter");
+				$form_validerpanier->getform();
+
+				$form_validerpanier = new form("resetpanier","form_resetpanier.php","post","");
+				$form_validerpanier->setsubmit("reinitialisationpanier","Vider");
 				$form_validerpanier->getform();
 			}
 		?>

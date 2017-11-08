@@ -1,7 +1,7 @@
 <?php
 	session_start();
 	require_once("connexionbd.php");
-	require_once("form.php");
+	require_once("classes/form.php");
 	require_once("fonctions_oublimdp.php");
 
 	$_SESSION['form'] = $_POST;
@@ -9,7 +9,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Mot de passe oublié</title>
+	<title>Galerie-Card || Mot de passe oublié</title>
 	<link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>

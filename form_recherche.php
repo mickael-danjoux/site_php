@@ -1,4 +1,5 @@
 <?php
+	//On démarre la session
 	session_start();
 
 	//On regarde si la variable de session 'motcle' existe et si l'utilisateur à écrit quelque chose dans la barre de recherche

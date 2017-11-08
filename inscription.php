@@ -1,6 +1,6 @@
 <?php
 require_once("connexionbd.php");
-require_once("form.php");
+require_once("classes/form.php");
 require_once("fonctions_inscription.php");
 
 session_start();
@@ -12,7 +12,7 @@ $_SESSION['form'] = $_POST;
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Inscription</title>
+	<title>Galerie-Card || Inscription</title>
 	<link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>

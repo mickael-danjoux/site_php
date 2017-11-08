@@ -1,17 +1,20 @@
 <?php
+	//On démarre la session
 	session_start();
 
-	require_once('form.php');
+	//On inclut les fichiers utilisés
+	require_once('classes/form.php');
 
 	//On regarde si on est bien connecté en Administrateur
 	if(!isset($_SESSION['admin']) || $_SESSION['admin'] == 0){
+		//Si non, on retourne à la page d'accueil
 		header('Location: index.php');
 	}
 ?>
 <!DOCTYPE html>
 <html>
 <head>
-	<title></title>
+	<title>Galerie-Card || Administrateur</title>
 	<link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
@@ -22,21 +25,20 @@
 				echo $_GET['message'];
 			}
 		?>
-			<ul id="menu_admin">
-				<li><a href="administrateurAjout.php">Ajout photo</a></li>
-				<li><a href="administrateurSuppr.php">Catalogue photo</a></li>
-			</ul>
+			<a id="ajoutPhoto" href="administrateurAjout.php">Ajout photo</a>
+			<a class="cataloguePhoto" href="administrateurSuppr.php">Catalogue photo</a>
 
 		<?php	
-			//Formulaire de déconnexion
-				$form_deconnexion = new form("deconnexion","deconnexion.php","post","");
-				$form_deconnexion->setsubmit("validerdeconnexion","Deconnexion");
-				$form_deconnexion->getform();
+			//Formulaire de déconnexion de l'utilisateur
+			$form_deconnexion = new form("deconnexion","deconnexion.php","post","");
+			$form_deconnexion->setsubmit("validerdeconnexion","Deconnexion");
+			$form_deconnexion->getform();
 		?>
 	</div>
 	<div id="contenu">
 		<h1>Ajout de photo</h1>
 		<?php
+			//On ajoute le formulaire d'ajout de photo à la page
 			$formAjoutPhoto = new form("ajoutPhoto","form_ajoutImage.php","post","multipart/form-data");
 			//On restreint les tailles de photos à 1Go
 			$formAjoutPhoto->setinput("hidden","tailleMaxImage","1000000",0);

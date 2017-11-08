@@ -1,24 +1,24 @@
 <?php
-session_start();
+	//On démarre la session
+	session_start();
 
 	//On inclut les fichiers utilisés
-require_once('form.php');
-require_once('connexionbd.php');
+	require_once('classes/form.php');
+	require_once('connexionbd.php');
 
 	//Vérification que l'utilisateur n'est pas admin, car il a une page spéciale pour le catalogue
-if(isset($_SESSION['admin'])){
-	if($_SESSION['admin']){
-		header('Location: administrateurSuppr.php');
+	if(isset($_SESSION['admin'])){
+		if($_SESSION['admin']){
+			header('Location: administrateurSuppr.php');
+		}
 	}
-}
 ?>
 
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Site</title>
+	<title>Galerie-Card || Catalogue</title>
 	<link rel="stylesheet" type="text/css" href="style.css">
-	<META HTTP-EQUIV="CACHE-CONTROL" CONTENT="NO-CACHE">
 	</head>
 	<body>
 		<div id="bandeau">	
@@ -36,6 +36,7 @@ if(isset($_SESSION['admin'])){
 					//lien pour le panier
 					echo "<a id='lienPanier' href='panier.php'>Panier</a>";
 
+					//Si on est connecté, on affiche la page d'utilisateur
 					if(isset($_SESSION['admin']) && $_SESSION['admin'] == 0){
 						//lien page utilisateur
 						echo "<a id='pageUtilisateur' href='pageUtilisateur.php'>Mon espace</a>";
@@ -46,7 +47,6 @@ if(isset($_SESSION['admin'])){
 					$form_deconnexion->setsubmit("validerdeconnexion","Déconnexion");
 					$form_deconnexion->getform();
 
-					
 				}
 				else{
 					//Formulaire de connexion
@@ -86,7 +86,7 @@ if(isset($_SESSION['admin'])){
 					echo "</div>";
 				}
 				else{
-					//On les affiche
+					//On affiche les photos correspondant au mot clé 
 					foreach ($resultat as $row) {
 						$image = new Image($row[1],$row[2],$row[3],$row[4],$row[5],$row[6],$row[7],$row[8],$row[9],$row[10]);
 						$afficheM = $image->afficheMiniature();
@@ -109,9 +109,6 @@ if(isset($_SESSION['admin'])){
 				}
 			}
 			?>
-		</div>
-		<div id="piedpage">
-
-		</div>
+		</div>	
 	</body>
-	</html>
+</html>

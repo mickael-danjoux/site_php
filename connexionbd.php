@@ -1,10 +1,12 @@
 
 <?php
+	//On inclut les fichiers utilisés
+	require_once('classes/BDD.php');
 
-	require_once('BDD.php');
+	//On crée une nouvelle Base de données
 	$BDD = new BDD("root","site_php","","localhost");
+	//On s'y connecte
 	$BDD->connexion();
-
 
 	//Pour éviter les erreurs d'accent dans les mots
 	$requete = $BDD->getPdo()->prepare("SET NAMES utf8");

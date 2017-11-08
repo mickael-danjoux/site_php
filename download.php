@@ -1,4 +1,5 @@
 <?php
+	//On assigne à une variable le lien de l'image à télécharger
 	$lien = $_POST['lienImage'];
 
 	//On enlève du lien la chaine 'images/reelle/' pour garder que le nom du fichier stocké

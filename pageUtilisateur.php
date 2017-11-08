@@ -1,8 +1,8 @@
 <?php
 	session_start();
 	require_once("connexionbd.php");
-	require_once("form.php");
-	require_once("image.php");
+	require_once("classes/form.php");
+	require_once("classes/image.php");
 
 	if(!isset($_SESSION['mail'],$_SESSION['id'],$_SESSION['mdp'],$_SESSION['admin'])){
 		header('Location: index.php');
@@ -15,7 +15,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Site</title>
+	<title>Galerie-Card || Mon espace</title>
 	<link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>

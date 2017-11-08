@@ -1,5 +1,5 @@
 <?php
-	require_once('connexionbd.php');
+	require_once("/connexionbd.php");
 
 	class Image{
 		private $id;
@@ -120,7 +120,7 @@
 		public function afficheMiniature(){
 			$min = "<div class='image'>";
 			$min .= "<div class='photo'>";
-				$min .= "<a href='".$this->lien_page."'><img src='".$this->url_m."'></a>";
+				$min .= "<a href='".$this->lien_page."'><img src='".$this->url_m."' alt=''></a>";
 			$min .= "</div>";
 			$min .= "<div class='nom'>";
 				$min .= $this->nom;
@@ -149,10 +149,10 @@
 			$reelle = "<div class='imagepage'>";
 				//On regarde si l'utilisateur est administrateur ou pas, si non, on affiche les photos avec un copyright
 				if($_admin){
-					$reelle .= "<img src='../".$this->getUrl()."'>";
+					$reelle .= "<img src='../".$this->getUrl()."' alt='' >";
 				}
 				else{
-					$reelle .= "<img src='../".$this->getUrlCopy()."'>";
+					$reelle .= "<img src='../".$this->getUrlCopy()."' alt='' >";
 				}
 			$reelle .= "</div>
 				<div class='nompage'>";
